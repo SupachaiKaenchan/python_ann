@@ -22,6 +22,9 @@ for dirpath, dirnames, filenames in os.walk(sourcePath):
 
 
 print count
+
+lst = sorted(lst, key=str.lower)
+
 print len(lst)
 
 
@@ -37,7 +40,7 @@ curPath = ""
 
 print "start"
 
-for i in range(0,count-1):
+for i in range(0,count):
     counter = counter + 1
     
     if (counter >= 100):
@@ -62,6 +65,7 @@ for i in range(0,count-1):
 
    
     e = "mv '" + a + "' '" + curPath + "/" + d + "'"
+    #e = "mv '" + a + "' '" +  "" + d + "'"
     #print e
     txt.write(e + "\n")
 
