@@ -6,7 +6,7 @@ w = 0.729844 # Inertia weight to prevent velocities becoming too large
 c1 = 1.496180 # Scaling co-efficient on the social component
 c2 = 1.496180 # Scaling co-efficient on the cognitive component
 dimension = 2 # Size of the problem
-iterations = 100
+iterations = 1000
 swarmSize = 30
  
 # This class contains the code of the Particles in the swarm
@@ -56,18 +56,27 @@ class ParticleSwarmOptimizer:
         return
  
     def optimize(self):
+        firstTime = 0
+        output = []
+        
         for i in range(iterations):
-            print "iteration ", i
+           
             #Get the global best particle
             gBest = copy.deepcopy(self.swarm[0].pBest)
+            if (firstTime == 0):
+                output = copy.deepcopy(gBest)
+                firstTime = 1
+            
             for j in range(swarmSize):
                 pBest = self.swarm[j].pBest
                 if self.f(pBest) < self.f(gBest):
-                    gBest = pBest  
-            output = copy.deepcopy(gBest)
-            
-            print self.f(output)
-            print ("data " + str(output[0]) + " , " + str(output[1]))
+                    gBest = pBest
+
+            if (self.f(gBest) < self.f(output)):
+                output = copy.deepcopy(gBest)
+                print "iteration ", i
+                print self.f(output)
+                print ("data " + str(output[0]) + " , " + str(output[1]))
             
             #Update position of each paricle
             for k in range(swarmSize):
