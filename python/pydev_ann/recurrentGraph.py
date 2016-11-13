@@ -1,5 +1,62 @@
 import copy, numpy as np
+import matplotlib.pyplot as plt
+import pylab as pylab
+
 np.random.seed(0)
+
+
+#<< about graph
+
+
+xAchse=pylab.arange(0,100,1)
+yAchse=pylab.array([0]*100)
+
+fig = pylab.figure(1)
+ax = fig.add_subplot(111)
+ax.grid(True)
+ax.set_title("Realtime Waveform Plot")
+ax.set_xlabel("Time")
+ax.set_ylabel("Amplitude")
+ax.axis([0,100,-1.5,1.5])
+line1=ax.plot(xAchse,yAchse,'-')
+
+manager = pylab.get_current_fig_manager()
+
+values=[]
+values = [0 for x in range(100)]
+
+Ta=0.01
+fa=1.0/Ta
+fcos=3.5
+
+Konstant=pylab.cos(2*pylab.pi*fcos*Ta)
+T0=1.0
+T1=Konstant
+
+
+
+def SinwaveformGenerator(arg):
+  global values,T1,Konstant,T0
+  #ohmegaCos=arccos(T1)/Ta
+  #print "fcos=", ohmegaCos/(2*pi), "Hz"
+
+  Tnext=((Konstant*T1)*2)-T0
+  if len(values)%100>70:
+    values.append(pylab.random()*2-1)
+  else:
+    values.append(Tnext)
+  T0=T1
+  T1=Tnext
+
+def RealtimePloter(arg):
+  global values
+  CurrentXAxis=pylab.arange(len(values)-100,len(values),1)
+  line1[0].set_data(CurrentXAxis,pylab.array(values[-100:]))
+  ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),-1.5,1.5])
+  manager.canvas.draw()
+  #manager.show()
+
+#about grap >>
 
 # compute sigmoid nonlinearity
 def sigmoid(x):
@@ -34,9 +91,24 @@ synapse_0 = 2*np.random.random((input_dim,hidden_dim)) - 1
 synapse_1 = 2*np.random.random((hidden_dim,output_dim)) - 1
 synapse_h = 2*np.random.random((hidden_dim,hidden_dim)) - 1
 
+
+
 synapse_0_update = np.zeros_like(synapse_0)
 synapse_1_update = np.zeros_like(synapse_1)
 synapse_h_update = np.zeros_like(synapse_h)
+
+
+#graph
+
+timer = fig.canvas.new_timer(interval=50)
+timer.add_callback(RealtimePloter, ())
+timer2 = fig.canvas.new_timer(interval=50)
+timer2.add_callback(SinwaveformGenerator, ())
+timer.start()
+timer2.start()
+
+pylab.show(block=False)
+#graph
 
 # training logic
 for j in range(10000):
@@ -128,4 +200,5 @@ for j in range(10000):
         print str(a_int) + " + " + str(b_int) + " = " + str(out)
         print "------------"
 
+pylab.show()
         
