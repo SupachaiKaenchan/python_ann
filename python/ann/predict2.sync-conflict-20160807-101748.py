@@ -1,6 +1,4 @@
 import copy, numpy as np
-import matplotlib.pyplot as plt
-
 np.random.seed(0)
 
 # compute sigmoid nonlinearity
@@ -35,8 +33,6 @@ output_dim = 1
 synapse_0 = 2*np.random.random((input_dim,hidden_dim)) - 1
 synapse_1 = 2*np.random.random((hidden_dim,output_dim)) - 1
 synapse_h = 2*np.random.random((hidden_dim,hidden_dim)) - 1
-
-
 
 synapse_0_update = np.zeros_like(synapse_0)
 synapse_1_update = np.zeros_like(synapse_1)
