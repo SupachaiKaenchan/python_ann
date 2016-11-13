@@ -56,7 +56,8 @@ for j in range(10000):
     d = np.zeros_like(c)
 
     overallError = 0
-    
+
+    #these list keep 8 bit state
     layer_2_deltas = list()
     layer_1_values = list()
     layer_1_values.append(np.zeros(hidden_dim))
@@ -86,10 +87,12 @@ for j in range(10000):
         layer_1_values.append(copy.deepcopy(layer_1))
     
     future_layer_1_delta = np.zeros(hidden_dim)
-    
+
+    # learning
     for position in range(binary_dim):
         
         X = np.array([[a[position],b[position]]])
+        # grab layer1 current and prev layer
         layer_1 = layer_1_values[-position-1]
         prev_layer_1 = layer_1_values[-position-2]
         

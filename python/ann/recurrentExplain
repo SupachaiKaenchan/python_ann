@@ -1,0 +1,22 @@
+2
+16
+1
+
+synap0 =  2 x 16
+synap1 =  16 x 1
+
+sysapH = 16 x 16
+
+
+
+layer_1_values = list()
+layer_2_deltas = list
+
+layer_1_values.append ( np zerous hidden_dim )
+
+X = [0,0]
+
+layer_1 = 1 x 16  =  dot(X,synap_0) + dot(layer_1_values[-1] , synapseH)
+                 =       16   +  16
+
+layer_2 = dot (layer_1 , synapse_1)   = 1
