@@ -8,7 +8,7 @@ lst = [];
 
 count = 0
 
-sourcePath = "/home/d/videos/syncthing/dem_year"  #"/raid0/dem_year"
+sourcePath = "/home/dewtx29/Videos/dem_time"  #"/raid0/dem_year"
 desPath = "/raid0/bmp"
 
 
@@ -33,7 +33,7 @@ lst = sorted(lst, key=str.lower)
 print len(lst)
 
 
-txt = open ("/home/d/2.sh","w")
+txt = open ("/raid0/3.sh","w")
 
 
 
@@ -58,14 +58,14 @@ for folderloop in range (1,10):
 
         #ffmpeg -framerate 60 -i g1_%5d.bmp -c:v libx264 ~/g1.mp4
        
-        e = "ffmpeg -framerate 60 -i " + a + "_%5d.bmp -c:v libx264 /raid0/"+ a + ".mp4"
+        e = "ffmpeg -framerate 60 -i " + a + "%4d.tga -c:v libx264 /raid0/"+ a + ".mp4"
         
         
         #e = "mv '" + a + "'
         #print e
         txt.write(e + "\n")
 
-        txt.write("find . -name '" + a + "*' -delete\n")
+        #txt.write("find . -name '" + a + "*' -delete\n")
 
 txt.close()
 

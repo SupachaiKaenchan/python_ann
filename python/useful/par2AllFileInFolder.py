@@ -8,8 +8,8 @@ lst = [];
 
 count = 0
 
-sourcePath = "/home/d/Cloudxx/hubic/sub"
-desPath = "/home/d/Cloudxx/hubic/Dem_File/dem_x"
+sourcePath = "/ram2/2"
+desPath = "/ram2/3"
 
 
 for dirpath, dirnames, filenames in os.walk(sourcePath):
