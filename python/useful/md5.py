@@ -316,12 +316,13 @@ def uploadOnlyNotOnCloud_thread(local_md5, local_sha1):
         out = []
         for t in threads:
             gx = t.join()
-            out.append(gx)
+            for a in gx:
+                out.append(a)
             print "ret ret " + str(t.threadID)
             #print gx
 
         with open("/ram2/thirdColumnNotInCloud.txt", 'wb') as fp:
-            pickle.dump(nmd5, fp)
+            pickle.dump(out, fp)
         fp.close()
             
     else:
