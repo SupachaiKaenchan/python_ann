@@ -20,6 +20,64 @@ def readFileMD5Sha1Style(filePath):
 
     return beColumn
 
+
+def compare2File(big_list , small_list):
+    
+    wUpload = open("/ram2/compare2File.sh" , "w")
+
+    big = readFileMD5Sha1Style(big_list)
+
+    small = readFileMD5Sha1Style(small_list)
+
+
+    
+
+    print (str(len(big)) + " / " + str(len(small)) )
+
+    # loop everything in small list
+
+
+    # concat with sha1 column
+
+    thirdColumn = []
+
+    readMode3 = True
+
+    if (readMode3 == True):
+
+        
+        for a in range (0, len(small)):
+            # loop md5
+
+            if (a % 100 == 0):
+                print str(a) + " / " + str(len(small))
+
+            tmpMD5 = small[a][0]
+
+            for b in range(0,len(big)):
+                tmpMD52 = big[b][0]
+            
+                
+                if (tmpMD5 == tmpMD52):
+                    #print big[b]
+                    thirdColumn.append(big[b][1])
+
+
+
+        print str(len(thirdColumn))
+
+    mode = 2
+    if (mode == 1):
+        for b in range (0, len(thirdColumn)):
+            xxx = thirdColumn[b].replace("\n","")
+            wUpload.write("mv '/d/d/another2/g/randomized/" + xxx + "' '/d/d/another2/g/why/" + xxx + "'\n" )
+    elif (mode == 2):
+        for b in range (0, len(thirdColumn)):
+            xxx = thirdColumn[b].replace("\n","")
+            wUpload.write("./rclone copy 'google_tx:pc/" + xxx + "' '/d/d/xx/" + xxx + "'\n" )
+    wUpload.close()
+
+
 def uploadOnlyNotOnCloud(local_md5, local_sha1):
     
     wUpload = open("/ram2/uploadOnlyNotOnCloud.sh" , "w")
@@ -48,10 +106,12 @@ def uploadOnlyNotOnCloud(local_md5, local_sha1):
 
     thirdColumn = []
 
-    readMode3 = False
+    readMode3 = True
 
     if (readMode3 == True):
         for a in range (0, len(md5)):
+            if (a % 100 == 0):
+                print( str( a) + " % " + (str( a * 100 / (len(md5)))))
             # loop all file name
 
             tmpFileName = md5[a][1]
@@ -65,7 +125,7 @@ def uploadOnlyNotOnCloud(local_md5, local_sha1):
                     tmpG.append(md5[a][1])
                     tmpG.append(sha1[b][0])
                     thirdColumn.append(tmpG)
-                    print thirdColumn[0]
+                    #print thirdColumn[0]
 
 
         print str(len(thirdColumn))
@@ -86,7 +146,7 @@ def uploadOnlyNotOnCloud(local_md5, local_sha1):
     #*******************************
     # compare them which file are not in Cloud
 
-    compareMode = False
+    compareMode = True
 
     nmd5 = []
     
@@ -303,6 +363,8 @@ def diffOfMD5(cloudPath , localPath):
     flocal = open(localPath, "r")
 
     wNotSeem = open("/ram2/notSeem.sh" , "w")
+    wSeem = open("/ram2/Seem.sh" , "w")
+    
 
     linesC = fcloud.readlines()
     linesL = flocal.readlines()
@@ -318,15 +380,14 @@ def diffOfMD5(cloudPath , localPath):
     seemCount = 0;
     notSeemCount = 0;
     for i in range(0, len(md5C)):
-        if (i > 1000 ):
-            break
         
         tmpSeem = isMD5Seem(md5C , i , md5L)
         if (tmpSeem == True):
             seemCount = seemCount + 1
+            wSeem.write(md5C[i][0] + " " + md5C[i][1] + "\n" )
         else:
             notSeemCount = notSeemCount + 1
-            wNotSeem.write(md5C[i][0] + " " + md5C[i][1] )
+            wNotSeem.write(md5C[i][0] + " " + md5C[i][1] + "\n" )
         #print tmpM
 
 
@@ -340,6 +401,7 @@ def diffOfMD5(cloudPath , localPath):
     flocal.close()
     fcloud.close()
     wNotSeem.close()
+    wSeem.close()
 
 
 def checkNonUnicode(filePath):
@@ -458,11 +520,12 @@ def renameSpaceToUnderscore(filePath):
 #checkNonUnicode("/ram2/g_dd.txt")
 #renameSpaceToUnderscore("/ram2/one_dew.txt")
     
-#diffOfMD5("/ram2/x.txt" , "/ram2/local.txt")
+#diffOfMD5("/ram2/google_tx.txt" , "/ram2/local_md5.txt")
 #loadTheseFileToLocal("/ram2/notSeem.sh")
 uploadOnlyNotOnCloud("/ram2/local_md5.txt" , "/ram2/local_sha1.txt")
-                     
-                     
+#compare2File( "/ram2/local_md5.txt","/ram2/google_tx.txt" )
+#compare2File( "/ram2/google_tx_uniq.txt","/ram2/notSeem.sh" )
+                
                      
           
           
