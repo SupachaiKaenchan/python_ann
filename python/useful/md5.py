@@ -7,7 +7,8 @@ import re
 from random import randint
 import pickle
 
-
+import threading
+from multiprocessing import cpu_count
 
 
 def readFileMD5Sha1Style(filePath):
@@ -19,6 +20,8 @@ def readFileMD5Sha1Style(filePath):
     tmp.close()
 
     return beColumn
+
+
 
 
 def compare2File(big_list , small_list):
@@ -77,7 +80,267 @@ def compare2File(big_list , small_list):
             wUpload.write("./rclone copy 'google_tx:pc/" + xxx + "' '/d/d/xx/" + xxx + "'\n" )
     wUpload.close()
 
+class threadComparing (threading.Thread):
+    def __init__(self, threadID, name, thirdColumn , google_pat , google_dd,
+                 one_pat, one_dew , one_dd):
 
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.name = name
+        self.thirdColumn = thirdColumn
+        self.google_pat = google_pat
+        self.google_dd = google_dd
+        self.one_pat = one_pat
+        self.one_dew = one_dew
+        self.one_dd = one_dd
+
+        self.ret = None
+        print str(len(self.thirdColumn))
+
+    def run(self):
+
+        nmd5 = []
+        
+        for a in range (0,len(self.thirdColumn)):
+            if (a % 100 == 0):
+                print(str(self.threadID) + " /// " +  str( a) + " % " + (str( a * 100 / (len(self.thirdColumn)))))
+            
+            t1 = self.thirdColumn[a][0]
+            tsha = self.thirdColumn[a][2]
+
+            isFound = False
+            
+            #check them on the list
+            for b in range(0,len(self.google_pat)):
+                t2 = self.google_pat[b][0]
+
+                #print (t1 + " / " + t2)
+                
+                if (t2 == t1):
+                    isFound = True
+                    break
+
+            if (isFound == True):
+                continue
+            
+            #check them on the list
+            for b in range(0,len(self.google_dd)):
+                t2 = self.google_dd[b][0]
+
+                #print (t1 + " / " + t2)
+                
+                if (t2 == t1):
+                    isFound = True
+                    break
+
+            if (isFound == True):
+                continue
+
+
+            #check them on the list
+            for b in range(0,len(self.one_pat)):
+                t2 = self.one_pat[b][0]
+
+                #print (t1 + " / " + t2)
+                
+                if (t2 == tsha):
+                    isFound = True
+                    break
+
+            if (isFound == True):
+                continue
+
+
+            #check them on the list
+            for b in range(0,len(self.one_dew)):
+                t2 = self.one_dew[b][0]
+
+                #print (t1 + " / " + t2)
+                
+                if (t2 == tsha):
+                    isFound = True
+                    break
+
+            if (isFound == True):
+                continue
+
+            #check them on the list
+            for b in range(0,len(self.one_dd)):
+                t2 = self.one_dd[b][0]
+
+                #print (t1 + " / " + t2)
+                
+                if (t2 == tsha):
+                    isFound = True
+                    break
+
+            if (isFound == True):
+                continue
+            
+                
+            nmd5.append(self.thirdColumn[a])
+
+        self.ret = nmd5
+        #return nmd5
+    
+    def join(self):
+        threading.Thread.join(self)
+        return self.ret
+
+        
+def uploadOnlyNotOnCloud_thread(local_md5, local_sha1):
+    
+    wUpload = open("/ram2/uploadOnlyNotOnCloud.sh" , "w")
+
+    md5 = readFileMD5Sha1Style(local_md5)
+
+    sha1 = readFileMD5Sha1Style(local_sha1)
+
+    one_pat = readFileMD5Sha1Style("/ram2/one_pat_sha1.txt")
+    one_dew = readFileMD5Sha1Style("/ram2/one_dew_sha1.txt")
+    one_dd = readFileMD5Sha1Style("/ram2/one_dd_sha1.txt")
+    google_pat = readFileMD5Sha1Style("/ram2/google_pat_md5.txt")
+    google_dd = readFileMD5Sha1Style("/ram2/google_dd_md5.txt")
+    
+
+    print (str(len(md5)) + " / " + str(len(sha1)) )
+
+    print (str(len(one_pat)))
+    print (str(len(one_dew)))
+    print (str(len(one_dd)))
+    print (str(len(google_pat)))
+    print (str(len(google_dd)))
+
+
+    # concat with sha1 column
+
+    thirdColumn = []
+
+    readMode3 = False
+
+    if (readMode3 == True):
+        for a in range (0, len(md5)):
+            if (a % 100 == 0):
+                print( str( a) + " % " + (str( a * 100 / (len(md5)))))
+            # loop all file name
+
+            tmpFileName = md5[a][1]
+
+            for b in range(0,len(sha1)):
+                tmpFileName2 = sha1[b][1]
+
+                if (tmpFileName == tmpFileName2):
+                    tmpG = []
+                    tmpG.append(md5[a][0])
+                    tmpG.append(md5[a][1])
+                    tmpG.append(sha1[b][0])
+                    thirdColumn.append(tmpG)
+                    #print thirdColumn[0]
+
+
+
+
+        with open("/ram2/thirdColumn.txt", 'wb') as fp:
+            pickle.dump(thirdColumn, fp)
+
+        fp.close()
+        
+    else:
+        with open ("/ram2/thirdColumn.txt", 'rb') as fp:
+            thirdColumn = pickle.load(fp)
+        print str(len(thirdColumn))
+        print thirdColumn[0]
+
+
+    #*******************************
+    # compare them which file are not in Cloud
+
+    compareMode = True
+
+    nmd5 = []
+    
+    if (compareMode == True):
+
+        print str(len(thirdColumn))
+
+        increStep = len(thirdColumn)/4
+        increCur = 0
+        increMax = increCur + increStep
+
+        print ">>>>>>>>>>>>"
+
+        #threadLock = threading.Lock()
+        threads = []
+        threadsPre= []
+
+        slotCount = 0
+        while (increCur < len(thirdColumn)):
+            print str(increCur) + " / " + str(increMax) + " / " + str(len(thirdColumn))
+            
+            
+            if (increMax >= len(thirdColumn)):
+                increMax = len(thirdColumn)
+
+                
+                
+            subThird = []
+            
+            for i in range (increCur, increMax):
+                subThird.append(thirdColumn[i])
+
+            increCur = increCur + increStep
+            increMax = increMax + increStep
+
+            
+            
+            print str(len(subThird))
+            slotCount = slotCount  + 1
+
+            threadX = threadComparing(slotCount , str(increMax), subThird,  google_pat , google_dd,
+                 one_pat, one_dew , one_dd)
+            threadsPre.append(threadX)
+
+        counter = 0
+        print "threadsPre .size " + str(len(threadsPre))
+
+        print "thread core com : " + str(cpu_count())
+ 
+        
+        
+        for threadX in threadsPre:
+            counter = counter + 1
+            print "running " + str(counter)
+            threadX.start()
+            threads.append(threadX)
+
+        out = []
+        for t in threads:
+            gx = t.join()
+            out.append(gx)
+            print "ret ret " + str(t.threadID)
+            #print gx
+
+        with open("/ram2/thirdColumnNotInCloud.txt", 'wb') as fp:
+            pickle.dump(nmd5, fp)
+        fp.close()
+            
+    else:
+        with open ("/ram2/thirdColumnNotInCloud.txt", 'rb') as fp:
+            nmd5 = pickle.load(fp)
+
+        for a in range(0, len(nmd5)):
+
+            xxx = nmd5[a][1].replace("\n","")
+            wUpload.write("ln -s '/d/d/another2/g/randomized/" +   xxx + "' '/d/d/another2/o/" + xxx + "'\n")
+            
+
+    print ("n md5 " + str(len(nmd5)))
+
+    
+        
+
+    wUpload.close()   
+    
 def uploadOnlyNotOnCloud(local_md5, local_sha1):
     
     wUpload = open("/ram2/uploadOnlyNotOnCloud.sh" , "w")
@@ -522,7 +785,7 @@ def renameSpaceToUnderscore(filePath):
     
 #diffOfMD5("/ram2/google_tx.txt" , "/ram2/local_md5.txt")
 #loadTheseFileToLocal("/ram2/notSeem.sh")
-uploadOnlyNotOnCloud("/ram2/local_md5.txt" , "/ram2/local_sha1.txt")
+uploadOnlyNotOnCloud_thread("/ram2/local_md5.txt" , "/ram2/local_sha1.txt")
 #compare2File( "/ram2/local_md5.txt","/ram2/google_tx.txt" )
 #compare2File( "/ram2/google_tx_uniq.txt","/ram2/notSeem.sh" )
                 
