@@ -77,7 +77,7 @@ def compare2File(big_list , small_list):
         print "listHaveToDownload " + str(len(listHaveToDownload))
 
     wUpload = open("/ram2/compare2File.sh" , "w")
-    wHaveToDownload = open("/ram2/haveToDownload.sh" , "w")
+    wHaveToDownload = open("/ram2/haveToDownload5.sh" , "w")
 
     mode = 2
     if (mode == 1):
@@ -92,7 +92,7 @@ def compare2File(big_list , small_list):
 
         for b in range(0,len(listHaveToDownload)):
             xxx = listHaveToDownload[b].replace("\n","")
-            wHaveToDownload.write("./rclone copy 'google_pat:pc/" +   xxx + "' '/d/d/another2/notInLocal/" + xxx + "'\n")
+            wHaveToDownload.write("./rclone copy 'one_dd:" +   xxx + "' '/d/d/another2/notInLocal/" + xxx + "'\n")
 
     wHaveToDownload.close() 
     wUpload.close()
@@ -807,7 +807,7 @@ def renameSpaceToUnderscore(filePath):
 #diffOfMD5("/ram2/google_tx.txt" , "/ram2/local_md5.txt")
 #loadTheseFileToLocal("/ram2/notSeem.sh")
 #uploadOnlyNotOnCloud_thread("/ram2/local_md5.txt" , "/ram2/local_sha1.txt")
-compare2File( "/ram2/local_md5.txt","/ram2/google_pat_md5_uniq.txt" )
+compare2File( "/ram2/local_sha1.txt","/ram2/one_dd_sha1_uniq.txt" )
 #compare2File( "/ram2/google_tx_uniq.txt","/ram2/notSeem.sh" )
                 
                      
