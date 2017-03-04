@@ -26,10 +26,7 @@ def readFileMD5Sha1Style(filePath):
 
 def compare2File(big_list , small_list):
     
-    wUpload = open("/ram2/compare2File.sh" , "w")
-
     big = readFileMD5Sha1Style(big_list)
-
     small = readFileMD5Sha1Style(small_list)
 
 
@@ -43,6 +40,7 @@ def compare2File(big_list , small_list):
     # concat with sha1 column
 
     thirdColumn = []
+    listHaveToDownload = []
 
     readMode3 = True
 
@@ -50,6 +48,7 @@ def compare2File(big_list , small_list):
 
         
         for a in range (0, len(small)):
+
             # loop md5
 
             if (a % 100 == 0):
@@ -57,17 +56,28 @@ def compare2File(big_list , small_list):
 
             tmpMD5 = small[a][0]
 
+            found = False;
+            
             for b in range(0,len(big)):
                 tmpMD52 = big[b][0]
             
-                
+
                 if (tmpMD5 == tmpMD52):
-                    #print big[b]
+                        #print big[b]
                     thirdColumn.append(big[b][1])
+                    found = True
+                    break
+
+            if (found == False):
+                listHaveToDownload.append(small[a][1])
+                    
 
 
+        print "thirdColumn " + str(len(thirdColumn))
+        print "listHaveToDownload " + str(len(listHaveToDownload))
 
-        print str(len(thirdColumn))
+    wUpload = open("/ram2/compare2File.sh" , "w")
+    wHaveToDownload = open("/ram2/haveToDownload.sh" , "w")
 
     mode = 2
     if (mode == 1):
@@ -78,6 +88,13 @@ def compare2File(big_list , small_list):
         for b in range (0, len(thirdColumn)):
             xxx = thirdColumn[b].replace("\n","")
             wUpload.write("./rclone copy 'google_tx:pc/" + xxx + "' '/d/d/xx/" + xxx + "'\n" )
+
+
+        for b in range(0,len(listHaveToDownload)):
+            xxx = listHaveToDownload[b].replace("\n","")
+            wHaveToDownload.write("./rclone copy 'google_pat:pc/" +   xxx + "' '/d/d/another2/notInLocal/" + xxx + "'\n")
+
+    wHaveToDownload.close() 
     wUpload.close()
 
 class threadComparing (threading.Thread):
@@ -255,7 +272,7 @@ def uploadOnlyNotOnCloud_thread(local_md5, local_sha1):
     #*******************************
     # compare them which file are not in Cloud
 
-    compareMode = True
+    compareMode = False
 
     nmd5 = []
     
@@ -330,11 +347,14 @@ def uploadOnlyNotOnCloud_thread(local_md5, local_sha1):
             nmd5 = pickle.load(fp)
 
         for a in range(0, len(nmd5)):
+            xxx = nmd5[a][1].replace("./","")
+            xxx = xxx.replace("\n","")
 
-            xxx = nmd5[a][1].replace("\n","")
+            
             wUpload.write("ln -s '/d/d/another2/g/randomized/" +   xxx + "' '/d/d/another2/o/" + xxx + "'\n")
             
 
+    
     print ("n md5 " + str(len(nmd5)))
 
     
@@ -786,8 +806,8 @@ def renameSpaceToUnderscore(filePath):
     
 #diffOfMD5("/ram2/google_tx.txt" , "/ram2/local_md5.txt")
 #loadTheseFileToLocal("/ram2/notSeem.sh")
-uploadOnlyNotOnCloud_thread("/ram2/local_md5.txt" , "/ram2/local_sha1.txt")
-#compare2File( "/ram2/local_md5.txt","/ram2/google_tx.txt" )
+#uploadOnlyNotOnCloud_thread("/ram2/local_md5.txt" , "/ram2/local_sha1.txt")
+compare2File( "/ram2/local_md5.txt","/ram2/google_pat_md5_uniq.txt" )
 #compare2File( "/ram2/google_tx_uniq.txt","/ram2/notSeem.sh" )
                 
                      
