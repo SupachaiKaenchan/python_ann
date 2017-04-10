@@ -34,13 +34,14 @@ for tmp in lines:
     dura = float(ss[1].replace("\n",""))
     tmpDura = tmpDura + dura
 
-    txt.write ("mkdir " + desPath + "/" + str(tmpGroup) +"\n")
-    txt.write ("mv " + sourcePath + "/" + ss[0] + " " + desPath + "/" + str(tmpGroup) + "/"  + ss[0] + "\n")
 
     if (tmpDura > maxDura):
         print tmpDura
         tmpDura = 0
         tmpGroup = tmpGroup + 1
+
+    txt.write ("mkdir " + desPath + "/" + str(tmpGroup) +"\n")
+    txt.write ("mv " + sourcePath + "/" + ss[0] + " " + desPath + "/" + str(tmpGroup) + "/"  + ss[0] + "\n")
 
 
 
