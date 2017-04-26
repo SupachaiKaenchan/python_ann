@@ -8,8 +8,8 @@ lst = [];
 
 count = 0
 
-sourcePath = "/d/d/videos/be/timelapse/timelapse/1/2"
-desPath = "/d/d/videos/be/timelapse/timelapse/1/dura"
+sourcePath = "/d/d/another/tmp_photo/uncheck/mp4/1280x720"
+desPath = "/d/d/another/tmp_photo/mp4_dura"
 
 
 txt = open ("/ram/1.txt","r")
