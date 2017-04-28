@@ -103,7 +103,6 @@ class RenderPls ():
 
         if (mode1 == mode2):
             return True
-
         
         return False
         
