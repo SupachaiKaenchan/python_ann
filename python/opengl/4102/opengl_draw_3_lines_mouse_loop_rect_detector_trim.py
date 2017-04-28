@@ -108,10 +108,15 @@ class RenderPls ():
     
     
     def trimDot(self):
+        
         for lop in range(0,len(dotList)):
             mode = self.getSideAsBit(dotList[lop][0] , dotList[lop][1])
 
             print ("lop " + str(dotList[lop]) + " = " + str(mode))
+
+            if (mode == 0):
+                dotList[lop][0] = 0
+                dotList[lop][1] = 0
             
 
     def display(self):
@@ -156,17 +161,18 @@ class RenderPls ():
         glVertex2f(400, 300);
         glVertex2f(400+(a-400), 300+(b-300));
 
+        bMov = False
+        if (bMov == True):
+            for lop in range(0,len(dotList)):
+                if (dotList[lop][0] > 400):
+                    dotList[lop][0] = dotList[lop][0] + 1
+                else:
+                    dotList[lop][0] = dotList[lop][0] - 1
 
-        for lop in range(0,len(dotList)):
-            if (dotList[lop][0] > 400):
-                dotList[lop][0] = dotList[lop][0] + 1
-            else:
-                dotList[lop][0] = dotList[lop][0] - 1
-
-            if (dotList[lop][1] > 300):
-                dotList[lop][1] = dotList[lop][1] + 1
-            else:
-                dotList[lop][1] = dotList[lop][1] - 1
+                if (dotList[lop][1] > 300):
+                    dotList[lop][1] = dotList[lop][1] + 1
+                else:
+                    dotList[lop][1] = dotList[lop][1] - 1
 
             
         for lop in range(0,len(dotList)-1):
