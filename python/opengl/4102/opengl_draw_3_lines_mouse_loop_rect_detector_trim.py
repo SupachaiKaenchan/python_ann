@@ -124,6 +124,7 @@ class RenderPls ():
         return zz    
 
     def reposition(self,x1,y1,mode1 ,x2,y2,mode2):
+        # note x y you have to send as Float
         
             if (mode1 & cont_Left):
                 
@@ -131,29 +132,58 @@ class RenderPls ():
 
                 oldM = (y1-y2)/(x1-x2)
 
-                print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
-                print ("oldM " + str(oldM))
+                #print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+                #print ("oldM " + str(oldM))
 
                 x1 = xMin
 
                 tmpY = (oldM *(x1-x2))+y2
                 
                 y1 = tmpY
-                print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+                #print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
                 
             elif(mode1 & cont_Right):
-                x1 = xMax
-                tmpY = (xMax-xMin) / yMax
-
-                #y = tmpY
-
-            if (mode1 & cont_Up):
-                y1 = yMin
-
 
                 
+                oldM = (y1-y2)/(x1-x2)
+
+                #print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+                #print ("oldM " + str(oldM))
+
+                x1 = xMax
+                tmpY = (oldM *(x1-x2))+y2
+                
+                y1 = tmpY
+                #print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+
+                y = tmpY
+
+            if (mode1 & cont_Up):
+
+
+                oldM = (y1-y2)/(x1-x2)
+
+                #print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+                #print ("oldM " + str(oldM))
+                y1 = yMin
+                
+                tmpX = (oldM *(y1-y2))+x2
+                
+                x1 = tmpX
+                #print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+                
             elif (mode1 & cont_Down):
+
+                oldM = (y1-y2)/(x1-x2)
+
+                #print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+                #print ("oldM " + str(oldM))
                 y1 = yMax
+                
+                tmpX = (oldM *(y1-y2))+x2
+                
+                x1 = tmpX
+                #print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
 
 
             g = [x1,y1]
