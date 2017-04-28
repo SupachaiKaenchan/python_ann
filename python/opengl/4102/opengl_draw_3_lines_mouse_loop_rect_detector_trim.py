@@ -96,6 +96,16 @@ class RenderPls ():
             return True
         else:
             return False
+
+    def isSeemSide(self,x1,y1 , x2,y2):
+        mode1 = self.getSideAsBit(x1,y1)
+        mode2 = self.getSideAsBit(x2,y2)
+
+        if (mode1 == mode2):
+            return True
+
+        
+        return False
         
     def getSideAsBit(self,x,y):
         zz = 0
@@ -113,23 +123,27 @@ class RenderPls ():
 
         return zz    
 
-    def reposition(self,x1,y1,mode1):
+    def reposition(self,x,y,mode):
         
-            if (mode1 & cont_Left):
-                x1 = xMin
-                tmpY = (xMax-Xmin) / yMax
+            if (mode & cont_Left):
+                x = xMin
+                tmpY = (xMax-xMin) / yMax
 
-                y1 = tmpY
+                y = tmpY
             elif(mode & cont_Right):
-                x1 = xMax
-                tmpY = (xMax-Xmin) / yMax
+                x = xMax
+                tmpY = (xMax-xMin) / yMax
 
-                y1 = tmpY
+                y = tmpY
 
-            if (mode1 & cont_Up):
-                y1 = yMin
+            if (mode & cont_Up):
+                y = yMin
             elif (mode & cont_Down):
-                y1 = yMax
+                y = yMax
+
+
+            g = [x,y,mode]
+            return g
     
     def trimDot(self):
         
@@ -151,6 +165,14 @@ class RenderPls ():
             else:
                 print "deny"
 
+                if (self.isSeemSide(x1,y1,x2,y2)):
+                    print "seem side nothing to do"
+                else:
+                    print "diferrent side trim point"
+
+                    g = self.reposition(x1,y1,mode1)
+                    dotList[lop][0] = g[0]
+                    dotList[lop][1] = g[1]
 
             lop = lop + 2
 
