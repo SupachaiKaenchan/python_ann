@@ -132,58 +132,59 @@ class RenderPls ():
 
                 oldM = (y1-y2)/(x1-x2)
 
-                #print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
-                #print ("oldM " + str(oldM))
+                print "left"
+                print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+                print ("oldM " + str(oldM))
 
                 x1 = xMin
 
                 tmpY = (oldM *(x1-x2))+y2
                 
                 y1 = tmpY
-                #print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+                print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2) + " = " + str((y1-y2)/(x1-x2)))
                 
             elif(mode1 & cont_Right):
 
-                
+                print "right"
                 oldM = (y1-y2)/(x1-x2)
 
-                #print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
-                #print ("oldM " + str(oldM))
+                print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+                print ("oldM " + str(oldM))
 
                 x1 = xMax
                 tmpY = (oldM *(x1-x2))+y2
                 
                 y1 = tmpY
-                #print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+                print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2)+ " = " + str((y1-y2)/(x1-x2)))
 
                 y = tmpY
 
             if (mode1 & cont_Up):
-
+                print "up"
 
                 oldM = (y1-y2)/(x1-x2)
 
-                #print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
-                #print ("oldM " + str(oldM))
+                print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+                print ("oldM " + str(oldM))
                 y1 = yMin
                 
-                tmpX = (oldM *(y1-y2))+x2
+                tmpX = ((y1-y2)/oldM)+x2
                 
                 x1 = tmpX
-                #print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+                print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2) + " = " + str((y1-y2)/(x1-x2)))
                 
             elif (mode1 & cont_Down):
-
+                print "down"
                 oldM = (y1-y2)/(x1-x2)
 
-                #print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
-                #print ("oldM " + str(oldM))
+                print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+                print ("oldM " + str(oldM))
                 y1 = yMax
                 
-                tmpX = (oldM *(y1-y2))+x2
+                tmpX = ((y1-y2)/oldM)+x2
                 
                 x1 = tmpX
-                #print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+                print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2)+ " = " + str((y1-y2)/(x1-x2)))
 
 
             g = [x1,y1]
