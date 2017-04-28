@@ -10,6 +10,15 @@ name = 'ball_glut'
 
 dotList = []
 
+#Up Down Left Right
+
+cout_None = 0
+cont_Right = 1
+cont_Left = 2
+cont_Down = 4
+cont_Up = 8
+
+
 xMin = 400 - 50
 yMin = 300 - 50
 
@@ -76,8 +85,35 @@ class RenderPls ():
         if button == GLUT_RIGHT_BUTTON:    
             if(state == GLUT_DOWN):
                 print ("right click test " + str(x) + " , " + str(y))
+
+                self.trimDot()
                 
 
+
+    def getSideAsBit(self,x,y):
+        zz = 0
+        
+        if (x < xMin):
+            zz = zz or cont_Left
+        elif(x > xMax):
+            zz = zz or cont_Right
+
+
+        if (y < yMin):
+            zz = zz or cont_Up
+        elif(y > yMax):
+            zz = zz or cont_Down
+
+        return zz    
+
+    
+    
+    def trimDot(self):
+        for lop in range(0,len(dotList)):
+            mode = self.getSideAsBit(dotList[lop][0] , dotList[lop][1])
+
+            print ("lop " + str(dotList[lop]) + " = " + str(mode))
+            
 
     def display(self):
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
