@@ -127,8 +127,13 @@ class RenderPls ():
         
             if (mode1 & cont_Left):
                 
+               
+
+                oldM = (y1-y2)/(x1-x2)
+
                 x1 = xMin
-                tmpY = (xMax-xMin) / yMax
+
+                tmpY = (oldM / (y1-y2))+x2
 
                 y1 = tmpY
             elif(mode1 & cont_Right):
@@ -174,9 +179,9 @@ class RenderPls ():
                 else:
                     print "diferrent side trim point"
 
-                    if (mode2 == 0 and mode1 != 0): # swap
+                    if (mode2 != 0 and mode1 == 0): # swap
                         ramX = dotList[lop][0]
-                        ramY = dotLIst[lop][1]
+                        ramY = dotList[lop][1]
 
                         dotList[lop][0] = dotList[lop+1][0]
                         dotList[lop][1] = dotList[lop+1][1]
