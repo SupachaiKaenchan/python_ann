@@ -38,7 +38,7 @@ class RenderPls ():
             #display()
             #print ("looping")
 
-        thread1 = myThread(1, "Thread-1", 1)
+        thread1 = myThread(1, "Thread-1", 1,self)
 
         # Start new Threads
         thread1.start()
@@ -46,7 +46,8 @@ class RenderPls ():
 
         glutMainLoop()
 
-
+        print "end"
+        
         return
 
 
@@ -100,16 +101,24 @@ class RenderPls ():
         return
 
 class myThread (threading.Thread):
-    def __init__(self, threadID, name, counter):
+    def __init__(self, threadID, name, counter, renderPls):
         threading.Thread.__init__(self)
+        self.renderPls = renderPls
         self.threadID = threadID
         self.name = name
         self.counter = counter
+        
     def run(self):
         print "Starting " + self.name
 
         while(True):
-            time.sleep(15)
+            print "myThread Force display"
+            time.sleep(0.15)
+            self.renderPls.display()
+            glutPostRedisplay()
+
+            print "myThread Force display 2"
+            
 
         print "Exiting " + self.name
 
