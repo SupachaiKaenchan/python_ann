@@ -116,8 +116,14 @@ class RenderPls ():
 
             if (mode & cont_Left):
                 dotList[lop][0] = xMin
+                tmpY = (xMax-Xmin) / yMax
+
+                dotList[lop][1] = tmpY
             elif(mode & cont_Right):
                 dotList[lop][0] = xMax
+                tmpY = (xMax-Xmin) / yMax
+
+                dotList[lop][1] = tmpY
 
             if (mode & cont_Up):
                 dotList[lop][1] = yMin
