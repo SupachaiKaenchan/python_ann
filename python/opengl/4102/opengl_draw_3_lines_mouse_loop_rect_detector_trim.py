@@ -123,27 +123,30 @@ class RenderPls ():
 
         return zz    
 
-    def reposition(self,x,y,mode):
+    def reposition(self,x1,y1,mode1 ,x2,y2,mode2):
         
-            if (mode & cont_Left):
+            if (mode1 & cont_Left):
                 
-                x = xMin
+                x1 = xMin
+                tmpY = (xMax-xMin) / yMax
+
+                y1 = tmpY
+            elif(mode1 & cont_Right):
+                x1 = xMax
                 tmpY = (xMax-xMin) / yMax
 
                 #y = tmpY
-            elif(mode & cont_Right):
-                x = xMax
-                tmpY = (xMax-xMin) / yMax
 
-                #y = tmpY
-
-            if (mode & cont_Up):
-                y = yMin
-            elif (mode & cont_Down):
-                y = yMax
+            if (mode1 & cont_Up):
+                y1 = yMin
 
 
-            g = [x,y,mode]
+                
+            elif (mode1 & cont_Down):
+                y1 = yMax
+
+
+            g = [x1,y1]
             return g
     
     def trimDot(self):
@@ -171,15 +174,28 @@ class RenderPls ():
                 else:
                     print "diferrent side trim point"
 
-                    
-                    g = self.reposition(x2,y2,mode2)
-                    dotList[lop+1][0] = g[0]
-                    dotList[lop+1][1] = g[1]
+                    if (mode2 == 0 and mode1 != 0): # swap
+                        ramX = dotList[lop][0]
+                        ramY = dotLIst[lop][1]
 
-                    
-                    g = self.reposition(x1,y1,mode1)
-                    dotList[lop][0] = g[0]
-                    dotList[lop][1] = g[1]
+                        dotList[lop][0] = dotList[lop+1][0]
+                        dotList[lop][1] = dotList[lop+1][1]
+                        dotList[lop+1][0] = ramX
+                        dotList[lop+1][1] = ramY
+
+                        x1 = dotList[lop][0]
+                        y1 = dotList[lop][1]
+                        x2 = dotList[lop+1][0]
+                        y2 = dotList[lop+1][1]
+                        
+                        mode1 = self.getSideAsBit(x1 , y1)
+                        mode2 = self.getSideAsBit(x2 , y2)
+
+                    if (mode1 != 0):    
+                        g = self.reposition(x1,y1,mode1,x2,y2,mode2)
+                        dotList[lop][0] = g[0]
+                        dotList[lop][1] = g[1]
+
 
                     
 
