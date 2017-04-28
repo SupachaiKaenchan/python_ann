@@ -89,9 +89,17 @@ class RenderPls ():
 
 
         for lop in range(0,len(dotList)):
-            dotList[lop][0] = dotList[lop][0] + 1
-            dotList[lop][1] = dotList[lop][1] + 1
+            if (dotList[lop][0] < 400):
+                dotList[lop][0] = dotList[lop][0] + 1
+            else:
+                dotList[lop][0] = dotList[lop][0] - 1
 
+            if (dotList[lop][1] < 300):
+                dotList[lop][1] = dotList[lop][1] + 1
+            else:
+                dotList[lop][1] = dotList[lop][1] - 1
+
+            
         for lop in range(0,len(dotList)-1):
             tmpX = dotList[lop][0];
             tmpY = dotList[lop][1];
