@@ -97,6 +97,15 @@ class RenderPls ():
         else:
             return False
 
+    def isBothOutSide(self,x1,y1 , x2,y2):
+        mode1 = self.getSideAsBit(x1,y1)
+        mode2 = self.getSideAsBit(x2,y2)
+
+        if (mode1 != 0 and mode2 != 0):
+            return True
+        else:
+            return False
+
     def isSeemSide(self,x1,y1 , x2,y2):
         mode1 = self.getSideAsBit(x1,y1)
         mode2 = self.getSideAsBit(x2,y2)
@@ -105,6 +114,8 @@ class RenderPls ():
             return True
         
         return False
+
+
         
     def getSideAsBit(self,x,y):
         zz = 0
@@ -211,6 +222,8 @@ class RenderPls ():
 
                 if (self.isSeemSide(x1,y1,x2,y2)):
                     print "seem side nothing to do"
+                elif (self.isBothOutSide(x1,y1,x2,y2)):
+                    print "both outSide"
                 else:
                     print "diferrent side trim point"
 
@@ -231,7 +244,7 @@ class RenderPls ():
                         mode1 = self.getSideAsBit(x1 , y1)
                         mode2 = self.getSideAsBit(x2 , y2)
 
-                    if (mode1 != 0):    
+                    if (mode1 != 0 ):    
                         g = self.reposition(float(x1),float(y1),mode1,float(x2),float(y2),mode2)
                         dotList[lop][0] = g[0]
                         dotList[lop][1] = g[1]
