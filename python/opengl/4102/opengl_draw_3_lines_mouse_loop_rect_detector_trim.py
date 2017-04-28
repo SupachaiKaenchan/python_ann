@@ -126,15 +126,16 @@ class RenderPls ():
     def reposition(self,x,y,mode):
         
             if (mode & cont_Left):
+                
                 x = xMin
                 tmpY = (xMax-xMin) / yMax
 
-                y = tmpY
+                #y = tmpY
             elif(mode & cont_Right):
                 x = xMax
                 tmpY = (xMax-xMin) / yMax
 
-                y = tmpY
+                #y = tmpY
 
             if (mode & cont_Up):
                 y = yMin
@@ -170,9 +171,17 @@ class RenderPls ():
                 else:
                     print "diferrent side trim point"
 
+                    
+                    g = self.reposition(x2,y2,mode2)
+                    dotList[lop+1][0] = g[0]
+                    dotList[lop+1][1] = g[1]
+
+                    
                     g = self.reposition(x1,y1,mode1)
                     dotList[lop][0] = g[0]
                     dotList[lop][1] = g[1]
+
+                    
 
             lop = lop + 2
 
