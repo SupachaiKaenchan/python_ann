@@ -12,7 +12,7 @@ dotList = []
 
 #Up Down Left Right
 
-cout_None = 0
+cont_None = 0
 cont_Right = 1
 cont_Left = 2
 cont_Down = 4
@@ -57,10 +57,9 @@ class RenderPls ():
             #display()
             #print ("looping")
 
-        thread1 = myThread(1, "Thread-1", 1,self)
+        #thread1 = myThread(1, "Thread-1", 1,self)
 
-        # Start new Threads
-        thread1.start()
+        #thread1.start()
         
 
         glutMainLoop()
@@ -94,15 +93,15 @@ class RenderPls ():
         zz = 0
         
         if (x < xMin):
-            zz = zz or cont_Left
+            zz = zz | cont_Left
         elif(x > xMax):
-            zz = zz or cont_Right
+            zz = zz | cont_Right
 
 
         if (y < yMin):
-            zz = zz or cont_Up
+            zz = zz | cont_Up
         elif(y > yMax):
-            zz = zz or cont_Down
+            zz = zz | cont_Down
 
         return zz    
 
