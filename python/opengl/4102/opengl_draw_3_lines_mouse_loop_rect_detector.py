@@ -10,15 +10,25 @@ name = 'ball_glut'
 
 dotList = []
 
+xMin = 400 - 50
+yMin = 300 - 50
+
+xMax = 400 + 50
+yMax = 300 +  50
+
 def main():
     print "main hi"
     tmpRen = RenderPls()
     tmpRen.setupVariable()
     
 class RenderPls ():
+    a = 0
+    b = 0
+    
     def __init__(self):
         print "RenderPls init"
-        
+
+    
         
     def setupVariable(self):
         glutInit(sys.argv)
@@ -73,7 +83,14 @@ class RenderPls ():
         # left line
         glColor3f(1.0, 0.0, 0.0);
 
-        a = random.random() * 800;
+        #a = random.random() * 800;
+        #b = random.random() * 600
+
+        self.a = self.a + 1
+#        self.b = self.b + 1
+
+        a = self.a
+        b = self.b
         
         glVertex2f(-400, 300);
         glVertex2f(400, 300);
@@ -81,11 +98,24 @@ class RenderPls ():
         glColor3f(0.0, 1.0, 0.0);
         glVertex2f(400, 300);
         glVertex2f(800, 300);
+
+
+        glVertex2f(xMin ,yMin)
+        glVertex2f(xMin ,yMax)
+        glVertex2f(xMax ,yMin)
+        glVertex2f(xMax ,yMax)
+
+        glVertex2f(xMin ,yMin)
+        glVertex2f(xMax ,yMin)
+        glVertex2f(xMin ,yMax)
+        glVertex2f(xMax ,yMax)
+        
+
         
         # top line
         glColor3f(0.0, 0.0, 1.0);
-        glVertex2f(a, 0);
-        glVertex2f(a, 300);
+        glVertex2f(400, 300);
+        glVertex2f(400+(a-400), 300+(b-300));
 
 
         for lop in range(0,len(dotList)):
