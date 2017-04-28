@@ -114,10 +114,15 @@ class RenderPls ():
 
             print ("lop " + str(dotList[lop]) + " = " + str(mode))
 
-            if (mode == 0):
-                dotList[lop][0] = 0
-                dotList[lop][1] = 0
-            
+            if (mode & cont_Left):
+                dotList[lop][0] = xMin
+            elif(mode & cont_Right):
+                dotList[lop][0] = xMax
+
+            if (mode & cont_Up):
+                dotList[lop][1] = yMin
+            elif (mode & cont_Down):
+                dotList[lop][1] = yMax
 
     def display(self):
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
