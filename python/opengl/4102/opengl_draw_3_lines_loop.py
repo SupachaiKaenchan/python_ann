@@ -17,7 +17,15 @@ def main():
     gluOrtho2D(0, 800, 600, 0);
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix()
-    glutMainLoop()
+
+
+
+    while(True):
+        display()
+        #print ("looping")
+
+    #glutMainLoop()
+    
     return
 
 
@@ -30,7 +38,7 @@ def display():
     # left line
     glColor3f(1.0, 0.0, 0.0);
 
-    a = random.random() * 400;
+    a = random.random() * 800;
     
     glVertex2f(-400, 300);
     glVertex2f(400, 300);
