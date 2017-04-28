@@ -180,7 +180,8 @@ class RenderPls ():
                     dotList[lop][1] = dotList[lop][1] - 1
 
             
-        for lop in range(0,len(dotList)-1):
+        lop = 0
+        while (lop < len(dotList)-1):
             tmpX = dotList[lop][0];
             tmpY = dotList[lop][1];
 
@@ -191,7 +192,7 @@ class RenderPls ():
             tmpY2 = dotList[lop+1][1];
 
             glVertex2f(tmpX2 , tmpY2)
-                        
+            lop = lop + 2
         
         
         glEnd();
