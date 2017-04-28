@@ -97,11 +97,11 @@ class RenderPls ():
         else:
             return False
 
-    def isBothOutSide(self,x1,y1 , x2,y2):
+    def isDiffSide(self,x1,y1 , x2,y2):
         mode1 = self.getSideAsBit(x1,y1)
         mode2 = self.getSideAsBit(x2,y2)
 
-        if (mode1 != 0 and mode2 != 0):
+        if (mode1 == mode2):
             return True
         else:
             return False
@@ -222,8 +222,8 @@ class RenderPls ():
 
                 if (self.isSeemSide(x1,y1,x2,y2)):
                     print "seem side nothing to do"
-                elif (self.isBothOutSide(x1,y1,x2,y2)):
-                    print "both outSide"
+                elif (self.isDiffSide(x1,y1,x2,y2)):
+                    print "different Side"
                 else:
                     print "diferrent side trim point"
 
