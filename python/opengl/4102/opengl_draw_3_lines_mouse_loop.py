@@ -98,6 +98,7 @@ class RenderPls ():
         glEnd();
         glPopMatrix()
         glutSwapBuffers()
+        glutPostRedisplay()
         return
 
 class myThread (threading.Thread):
@@ -110,12 +111,14 @@ class myThread (threading.Thread):
         
     def run(self):
         print "Starting " + self.name
-
+        
         while(True):
-            print "myThread Force display"
-            time.sleep(0.15)
-            self.renderPls.display()
-            glutPostRedisplay()
+            self.counter = self.counter + 1
+    
+            print "myThread Force display  : " + str(self.counter)
+            time.sleep(0.5)
+            #self.renderPls.display()
+            #glutPostRedisplay()
 
             print "myThread Force display 2"
             
