@@ -131,11 +131,16 @@ class RenderPls ():
 
                 oldM = (y1-y2)/(x1-x2)
 
+                print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+                print ("oldM " + str(oldM))
+
                 x1 = xMin
 
-                tmpY = (oldM / (y1-y2))+x2
-
+                tmpY = (oldM *(x1-x2))+y2
+                
                 y1 = tmpY
+                print (str(y1) + "," + str(y2) + " / " + str(x1) + "," + str(x2))
+                
             elif(mode1 & cont_Right):
                 x1 = xMax
                 tmpY = (xMax-xMin) / yMax
@@ -197,7 +202,7 @@ class RenderPls ():
                         mode2 = self.getSideAsBit(x2 , y2)
 
                     if (mode1 != 0):    
-                        g = self.reposition(x1,y1,mode1,x2,y2,mode2)
+                        g = self.reposition(float(x1),float(y1),mode1,float(x2),float(y2),mode2)
                         dotList[lop][0] = g[0]
                         dotList[lop][1] = g[1]
 
