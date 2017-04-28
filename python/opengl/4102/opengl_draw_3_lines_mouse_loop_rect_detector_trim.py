@@ -88,7 +88,15 @@ class RenderPls ():
                 self.trimDot()
                 
 
+    def isAccept(self,x1,y1 , x2,y2):
+        mode1 = self.getSideAsBit(x1,y1)
+        mode2 = self.getSideAsBit(x2,y2)
 
+        if (mode1 == 0 and mode2 == 0):
+            return True
+        else:
+            return False
+        
     def getSideAsBit(self,x,y):
         zz = 0
         
@@ -105,30 +113,46 @@ class RenderPls ():
 
         return zz    
 
-    
+    def reposition(self,x1,y1,mode1):
+        
+            if (mode1 & cont_Left):
+                x1 = xMin
+                tmpY = (xMax-Xmin) / yMax
+
+                y1 = tmpY
+            elif(mode & cont_Right):
+                x1 = xMax
+                tmpY = (xMax-Xmin) / yMax
+
+                y1 = tmpY
+
+            if (mode1 & cont_Up):
+                y1 = yMin
+            elif (mode & cont_Down):
+                y1 = yMax
     
     def trimDot(self):
         
-        for lop in range(0,len(dotList)):
-            mode = self.getSideAsBit(dotList[lop][0] , dotList[lop][1])
+        lop = 0
+        while(lop < len(dotList)-1):
+            x1 = dotList[lop][0]
+            y1 = dotList[lop][1]
+            x2 = dotList[lop+1][0]
+            y2 = dotList[lop+1][1]
+            
+            mode1 = self.getSideAsBit(x1 , y1)
+            mode2 = self.getSideAsBit(x2 , y2)
 
-            print ("lop " + str(dotList[lop]) + " = " + str(mode))
+            print ("lop " + str(dotList[lop]) + " = " + str(mode1))
+            print ("lop " + str(dotList[lop]) + " = " + str(mode2))
 
-            if (mode & cont_Left):
-                dotList[lop][0] = xMin
-                tmpY = (xMax-Xmin) / yMax
+            if (self.isAccept(x1,y1,x2,y2)):
+                print "accept"
+            else:
+                print "deny"
 
-                dotList[lop][1] = tmpY
-            elif(mode & cont_Right):
-                dotList[lop][0] = xMax
-                tmpY = (xMax-Xmin) / yMax
 
-                dotList[lop][1] = tmpY
-
-            if (mode & cont_Up):
-                dotList[lop][1] = yMin
-            elif (mode & cont_Down):
-                dotList[lop][1] = yMax
+            lop = lop + 2
 
     def display(self):
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
