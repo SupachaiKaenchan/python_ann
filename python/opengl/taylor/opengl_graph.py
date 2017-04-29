@@ -21,16 +21,22 @@ def main():
     tmpRen.setupVariable()
     
 class RenderPls ():
+    minX = -200.0
+    maxX = 200.0
+    xStep = 0.1
 
-    tmpX = 0.0
+    drawXSpace = 10
+    drawYHigh = 200
     
     def __init__(self):
         print "RenderPls init"
 
-        for lop in range(0,800):
-            self.tmpX = self.tmpX + 0.1
-            g = [(self.tmpX*10)+ (winWidth/2),300+ (cos(self.tmpX)*200)]
+        
+        lop = self.minX
+        while (lop <= self.maxX):
+            g = [(lop*self.drawXSpace)+ (winWidth/2),(winHeight / 2)+ (cos(lop)*self.drawYHigh)]
             dotList.append(g)
+            lop = lop + self.xStep
     
         
     def setupVariable(self):
