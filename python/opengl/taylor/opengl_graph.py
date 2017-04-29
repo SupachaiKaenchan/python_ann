@@ -9,9 +9,6 @@ from math import cos,sin,  factorial
 
 name = 'taylor'
 
-dotList = []
-
-dotList2 = []
 
 
 winWidth = 800
@@ -31,6 +28,11 @@ class RenderPls ():
     drawYHigh = 100
 
     degree = 0
+
+
+    DotList = []
+
+    DotList2 = []
 
     def p1(self,x):
         j = cos(0)
@@ -60,26 +62,26 @@ class RenderPls ():
 
         
     def resetDotList(self):
-        #dotList = []
-        #dotList2 = []
+        self.DotList = []
+        self.DotList2 = []
         
         lop = self.minX
         while (lop <= self.maxX):
             g = [(lop*self.drawXSpace)+ (winWidth/2),(winHeight / 2)+ (cos(lop)*self.drawYHigh)]
-            dotList.append(g)
+            self.DotList.append(g)
             lop = lop + self.xStep
 
             
             g = [(lop*self.drawXSpace)+ (winWidth/2) ,  (winHeight / 2)+ (self.p1(lop))]
             #g = [0,0]
-            dotList2.append(g)
+            self.DotList2.append(g)
             lop = lop + self.xStep
 
 
-        print dotList[400]
-        print dotList2[400]
-        print str(len(dotList))
-        print str(len(dotList2))
+        print self.DotList[400]
+        print self.DotList2[400]
+        print str(len(self.DotList))
+        print str(len(self.DotList2))
         
     def __init__(self):
         print "RenderPls init"
@@ -132,13 +134,13 @@ class RenderPls ():
                 print ("click " + str(x) + " ," + str(y))
 
                 tmpC = [x,y]
-                #dotList.append(tmpC)
+                #self.DotList.append(tmpC)
 
         if button == GLUT_RIGHT_BUTTON:    
             if(state == GLUT_DOWN):
                 print ("right click test " + str(x) + " , " + str(y))
                 self.degree = self.degree + 1
-                
+
                 self.resetDotList()
                 
 
@@ -165,15 +167,15 @@ class RenderPls ():
         glColor3f(0.0, 1.0, 1.0);
 
         lop = 0
-        while (lop < len(dotList)-1):
-            tmpX = dotList[lop][0];
-            tmpY = dotList[lop][1];
+        while (lop < len(self.DotList)-1):
+            tmpX = self.DotList[lop][0];
+            tmpY = self.DotList[lop][1];
 
             glVertex2f(tmpX , tmpY)
 
 
-            tmpX2 = dotList[lop+1][0];
-            tmpY2 = dotList[lop+1][1];
+            tmpX2 = self.DotList[lop+1][0];
+            tmpY2 = self.DotList[lop+1][1];
 
             glVertex2f(tmpX2 , tmpY2)
             lop = lop + 1
@@ -181,15 +183,15 @@ class RenderPls ():
 
         glColor3f(0.5, 0.5, 1.0);
         lop = 0
-        while (lop < len(dotList)-1):
-            tmpX = dotList2[lop][0];
-            tmpY = dotList2[lop][1];
+        while (lop < len(self.DotList)-1):
+            tmpX = self.DotList2[lop][0];
+            tmpY = self.DotList2[lop][1];
 
             glVertex2f(tmpX , tmpY)
 
 
-            tmpX2 = dotList2[lop+1][0];
-            tmpY2 = dotList2[lop+1][1];
+            tmpX2 = self.DotList2[lop+1][0];
+            tmpY2 = self.DotList2[lop+1][1];
 
             glVertex2f(tmpX2 , tmpY2)
             lop = lop + 1
