@@ -244,10 +244,10 @@ class RenderPls ():
                         mode1 = self.getSideAsBit(x1 , y1)
                         mode2 = self.getSideAsBit(x2 , y2)
 
-                    if (mode1 != 0 ):    
-                        g = self.reposition(float(x1),float(y1),mode1,float(x2),float(y2),mode2)
-                        dotList[lop][0] = g[0]
-                        dotList[lop][1] = g[1]
+                     
+                    g = self.reposition(float(x1),float(y1),mode1,float(x2),float(y2),mode2)
+                    dotList[lop][0] = g[0]
+                    dotList[lop][1] = g[1]
 
 
                     
