@@ -5,6 +5,7 @@ import sys
 import random
 import threading
 import time
+from math import cos
 
 name = 'taylor'
 
@@ -23,8 +24,8 @@ def main():
     tmpRen.setupVariable()
     
 class RenderPls ():
-    a = 0
-    b = 0
+
+    tmpX = 0.0
     
     def __init__(self):
         print "RenderPls init"
@@ -88,15 +89,7 @@ class RenderPls ():
         # left line
         glColor3f(1.0, 0.0, 0.0);
 
-        #a = random.random() * 800;
-        #b = random.random() * 600
 
-        self.a = self.a + 1
-#        self.b = self.b + 1
-
-        a = self.a
-        b = self.b
-        
         glVertex2f(-400, 300);
         glVertex2f(400, 300);
         # right line
@@ -118,24 +111,14 @@ class RenderPls ():
 
         
         # top line
-        glColor3f(0.0, 0.0, 1.0);
-        glVertex2f(400, 300);
-        glVertex2f(400+(a-400), 300+(b-300));
+        glColor3f(0.0, 1.0, 1.0);
 
-        bMov = False
-        if (bMov == True):
-            for lop in range(0,len(dotList)):
-                if (dotList[lop][0] > 400):
-                    dotList[lop][0] = dotList[lop][0] + 1
-                else:
-                    dotList[lop][0] = dotList[lop][0] - 1
+        for lop in range(0,5):
+            self.tmpX = self.tmpX + 0.1
+            g = [self.tmpX*10,300+ (cos(self.tmpX)*200)]
+            dotList.append(g)
 
-                if (dotList[lop][1] > 300):
-                    dotList[lop][1] = dotList[lop][1] + 1
-                else:
-                    dotList[lop][1] = dotList[lop][1] - 1
 
-            
         lop = 0
         while (lop < len(dotList)-1):
             tmpX = dotList[lop][0];
@@ -148,7 +131,7 @@ class RenderPls ():
             tmpY2 = dotList[lop+1][1];
 
             glVertex2f(tmpX2 , tmpY2)
-            lop = lop + 2
+            lop = lop + 1
         
         
         glEnd();
