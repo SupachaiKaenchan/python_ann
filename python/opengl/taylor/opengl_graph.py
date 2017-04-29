@@ -5,11 +5,13 @@ import sys
 import random
 import threading
 import time
-from math import cos
+from math import cos,sin
 
 name = 'taylor'
 
 dotList = []
+
+dotList2 = []
 
 
 winWidth = 800
@@ -37,6 +39,13 @@ class RenderPls ():
             g = [(lop*self.drawXSpace)+ (winWidth/2),(winHeight / 2)+ (cos(lop)*self.drawYHigh)]
             dotList.append(g)
             lop = lop + self.xStep
+
+            g = [(lop*self.drawXSpace)+ (winWidth/2),(winHeight / 2)+ (-sin(lop)*self.drawYHigh)]
+            dotList2.append(g)
+            lop = lop + self.xStep
+
+                            
+            
     
         
     def setupVariable(self):
@@ -125,10 +134,26 @@ class RenderPls ():
             lop = lop + 1
 
 
+        glColor3f(0.5, 0.5, 1.0);
+        lop = 0
+        while (lop < len(dotList)-1):
+            tmpX = dotList2[lop][0];
+            tmpY = dotList2[lop][1];
+
+            glVertex2f(tmpX , tmpY)
+
+
+            tmpX2 = dotList2[lop+1][0];
+            tmpY2 = dotList2[lop+1][1];
+
+            glVertex2f(tmpX2 , tmpY2)
+            lop = lop + 1
+
+
         glColor3f(1.0, 1.0, 1.0);
 
-        glVertex2f(100 ,300)
-        glVertex2f(100+cos(0) ,400)
+        glVertex2f(winWidth / 2 ,winHeight / 2)
+        glVertex2f(winWidth / 2 , cos(0) * self.drawYHigh)
 
         
         glEnd();
