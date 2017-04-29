@@ -28,7 +28,23 @@ class RenderPls ():
     xStep = 0.1
 
     drawXSpace = 10
-    drawYHigh = 200
+    drawYHigh = 100
+
+    def p1(self,x):
+        j = cos(0)
+        #j = j + ((-sin(0)) * x) )/ (1)
+        j = j - ((-cos(0) * x * x)/2)
+        #j = j + ((sin(0) *x *x *x )/ (3*2))
+        
+        j = j + (((cos(0)) * x * x * x * x ) / (4*3*2*1))
+        #j = j + ((-sin(0)) * x) )/ (1)
+        j = j - ((-cos(0) * x * x * x * x * x * x )/ (6*5*4*3*2*1))
+        #j = j + ((sin(0) *x *x *x )/ (3*2))
+           
+        return j
+
+        
+        
     
     def __init__(self):
         print "RenderPls init"
@@ -40,7 +56,9 @@ class RenderPls ():
             dotList.append(g)
             lop = lop + self.xStep
 
-            g = [(lop*self.drawXSpace)+ (winWidth/2),(winHeight / 2)+ (-sin(lop)*self.drawYHigh)]
+            
+            g = [(lop*self.drawXSpace)+ (winWidth/2) ,  (winHeight / 2)+ (self.p1(lop))]
+            #g = [0,0]
             dotList2.append(g)
             lop = lop + self.xStep
 
