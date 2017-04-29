@@ -5,7 +5,7 @@ import sys
 import random
 import threading
 import time
-from math import cos,sin
+from math import cos,sin,  factorial
 
 name = 'taylor'
 
@@ -23,32 +23,45 @@ def main():
     tmpRen.setupVariable()
     
 class RenderPls ():
-    minX = -200.0
-    maxX = 200.0
+    minX = -100.0
+    maxX = 100.0
     xStep = 0.1
 
     drawXSpace = 10
     drawYHigh = 100
 
+    degree = 0
+
     def p1(self,x):
         j = cos(0)
-        #j = j + ((-sin(0)) * x) )/ (1)
-        j = j - ((-cos(0) * x * x)/2)
-        #j = j + ((sin(0) *x *x *x )/ (3*2))
+    
+        #print "*********  " + str(x)
+        #print j
+        #
+
+        lop = 0
+        while (lop < self.degree):
+            tmp = 0
+            if (lop % 4 == 0):
+                tmp = -sin(x)
+            elif (lop % 4 == 1):
+                tmp = -cos(x)
+            elif (lop % 4 == 2):
+                tmp = sin(x)
+            elif (lop % 4 == 3):
+                tmp = cos(x)
         
-        j = j + (((cos(0)) * x * x * x * x ) / (4*3*2*1))
-        #j = j + ((-sin(0)) * x) )/ (1)
-        j = j - ((-cos(0) * x * x * x * x * x * x )/ (6*5*4*3*2*1))
-        #j = j + ((sin(0) *x *x *x )/ (3*2))
+            j = j + (((tmp / factorial(lop+1))* ( pow(x,lop+1))) )
+            lop = lop + 1
+
+        #print j
            
         return j
 
         
-        
-    
-    def __init__(self):
-        print "RenderPls init"
-
+    def resetDotList(self):
+        #dotList = []
+        #dotList2 = []
         
         lop = self.minX
         while (lop <= self.maxX):
@@ -61,6 +74,19 @@ class RenderPls ():
             #g = [0,0]
             dotList2.append(g)
             lop = lop + self.xStep
+
+
+        print dotList[400]
+        print dotList2[400]
+        print str(len(dotList))
+        print str(len(dotList2))
+        
+    def __init__(self):
+        print "RenderPls init"
+        
+        self.resetDotList()
+        
+
 
                             
             
@@ -106,13 +132,14 @@ class RenderPls ():
                 print ("click " + str(x) + " ," + str(y))
 
                 tmpC = [x,y]
-                dotList.append(tmpC)
+                #dotList.append(tmpC)
 
         if button == GLUT_RIGHT_BUTTON:    
             if(state == GLUT_DOWN):
                 print ("right click test " + str(x) + " , " + str(y))
-
-                #self.trimDot()
+                self.degree = self.degree + 1
+                
+                self.resetDotList()
                 
 
     def display(self):
