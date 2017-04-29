@@ -41,19 +41,19 @@ class RenderPls ():
         #print j
         #
 
-        lop = 0
+        lop = 1
         while (lop < self.degree):
             tmp = 0
-            if (lop % 4 == 0):
+            if (lop % 4 == 1):
                 tmp = -sin(x)
-            elif (lop % 4 == 1):
-                tmp = -cos(x)
             elif (lop % 4 == 2):
-                tmp = sin(x)
+                tmp = -cos(x)
             elif (lop % 4 == 3):
+                tmp = sin(x)
+            elif (lop % 4 == 0):
                 tmp = cos(x)
         
-            j = j + (((tmp / factorial(lop+1))* ( pow(x,lop+1))) )
+            j = j + ((tmp))* ( pow(x,lop) / factorial(lop))
             lop = lop + 1
 
         #print j
@@ -72,7 +72,7 @@ class RenderPls ():
             lop = lop + self.xStep
 
             
-            g = [(lop*self.drawXSpace)+ (winWidth/2) ,  (winHeight / 2)+ (self.p1(lop))]
+            g = [(lop*self.drawXSpace)+ (winWidth/2) ,  (winHeight / 2)+ ((self.p1(lop))*(self.drawYHigh)) ]
             #g = [0,0]
             self.DotList2.append(g)
             lop = lop + self.xStep
