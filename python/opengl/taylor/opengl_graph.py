@@ -12,11 +12,8 @@ name = 'taylor'
 dotList = []
 
 
-xMin = 400 - 50
-yMin = 300 - 50
-
-xMax = 400 + 50
-yMax = 300 +  50
+winWidth = 800
+winHeight = 600
 
 def main():
     print "main hi"
@@ -30,17 +27,21 @@ class RenderPls ():
     def __init__(self):
         print "RenderPls init"
 
+        for lop in range(0,800):
+            self.tmpX = self.tmpX + 0.1
+            g = [(self.tmpX*10)+ (winWidth/2),300+ (cos(self.tmpX)*200)]
+            dotList.append(g)
     
         
     def setupVariable(self):
         glutInit(sys.argv)
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
-        glutInitWindowSize(800, 600)
+        glutInitWindowSize(winWidth, winHeight)
         glutCreateWindow(name)
 
         glClearColor(0.,0.,0.,1.)
         glutDisplayFunc(self.display)
-        gluOrtho2D(0, 800, 600, 0);
+        gluOrtho2D(0, winWidth, winHeight, 0);
         glMatrixMode(GL_MODELVIEW);
         glPushMatrix()
 
@@ -90,34 +91,18 @@ class RenderPls ():
         glColor3f(1.0, 0.0, 0.0);
 
 
-        glVertex2f(-400, 300);
-        glVertex2f(400, 300);
+        glVertex2f(winWidth / 2, 0);
+        glVertex2f(winWidth / 2, winHeight);
         # right line
         glColor3f(0.0, 1.0, 0.0);
-        glVertex2f(400, 300);
-        glVertex2f(800, 300);
+        glVertex2f(0, winHeight / 2);
+        glVertex2f(winWidth, winHeight / 2);
 
 
-        glVertex2f(xMin ,yMin)
-        glVertex2f(xMin ,yMax)
-        glVertex2f(xMax ,yMin)
-        glVertex2f(xMax ,yMax)
-
-        glVertex2f(xMin ,yMin)
-        glVertex2f(xMax ,yMin)
-        glVertex2f(xMin ,yMax)
-        glVertex2f(xMax ,yMax)
-        
 
         
         # top line
         glColor3f(0.0, 1.0, 1.0);
-
-        for lop in range(0,5):
-            self.tmpX = self.tmpX + 0.1
-            g = [self.tmpX*10,300+ (cos(self.tmpX)*200)]
-            dotList.append(g)
-
 
         lop = 0
         while (lop < len(dotList)-1):
@@ -132,7 +117,13 @@ class RenderPls ():
 
             glVertex2f(tmpX2 , tmpY2)
             lop = lop + 1
-        
+
+
+        glColor3f(1.0, 1.0, 1.0);
+
+        glVertex2f(100 ,300)
+        glVertex2f(100+cos(0) ,400)
+
         
         glEnd();
         glPopMatrix()
