@@ -7,7 +7,7 @@ import threading
 import time
 from math import cos,sin,  factorial
 
-name = 'taylor'
+name = 'marcolin'
 
 
 
@@ -45,15 +45,15 @@ class RenderPls ():
         while (lop < self.degree):
             tmp = 0
             if (lop % 4 == 1):
-                tmp = -sin(x)
+                tmp = -sin(0)
             elif (lop % 4 == 2):
-                tmp = -cos(x)
+                tmp = -cos(0)
             elif (lop % 4 == 3):
-                tmp = sin(x)
+                tmp = sin(0)
             elif (lop % 4 == 0):
-                tmp = cos(x)
+                tmp = cos(0)
         
-            j = j + ((tmp))* ( pow(x,lop) / factorial(lop))
+            j = j + (((tmp))* ( pow(x,lop) )/ factorial(lop))
             lop = lop + 1
 
         #print j
