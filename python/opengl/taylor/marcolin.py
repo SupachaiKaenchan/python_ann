@@ -25,8 +25,8 @@ class RenderPls ():
 
     counter =[0]    
 
-    drawXSpace = [10]
-    drawYHigh = [100]
+    drawXSpace = [50]
+    drawYHigh = [50]
 
     degree = [0]
 
@@ -73,7 +73,7 @@ class RenderPls ():
         while (lop <= self.mmmX[1]):
             g = [(lop*self.drawXSpace[0]), (cos(lop)*self.drawYHigh[0])]
             self.DotList.append(g)
-            lop = lop + self.xStep[0]
+            #lop = lop + self.xStep[0]
 
             
             g = [(lop*self.drawXSpace[0]) ,((self.p1(lop))*(self.drawYHigh[0])) ]
