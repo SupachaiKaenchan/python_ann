@@ -11,11 +11,11 @@ name = 'marcolin'
 
 
 
-winWidth = 800
-winHeight = 600
+winSize = [800,600]
+
 
 def main():
-    print "main hi"
+    print ("main hi")
     tmpRen = RenderPls()
     tmpRen.setupVariable()
     
@@ -67,24 +67,24 @@ class RenderPls ():
         
         lop = self.minX
         while (lop <= self.maxX):
-            g = [(lop*self.drawXSpace)+ (winWidth/2),(winHeight / 2)+ (cos(lop)*self.drawYHigh)]
+            g = [(lop*self.drawXSpace)+ (winSize[0]/2),(winSize[1] / 2)+ (cos(lop)*self.drawYHigh)]
             self.DotList.append(g)
             lop = lop + self.xStep
 
             
-            g = [(lop*self.drawXSpace)+ (winWidth/2) ,  (winHeight / 2)+ ((self.p1(lop))*(self.drawYHigh)) ]
+            g = [(lop*self.drawXSpace)+ (winSize[0]/2) ,  (winSize[1] / 2)+ ((self.p1(lop))*(self.drawYHigh)) ]
             #g = [0,0]
             self.DotList2.append(g)
             lop = lop + self.xStep
 
 
-        print self.DotList[400]
-        print self.DotList2[400]
-        print str(len(self.DotList))
-        print str(len(self.DotList2))
+        print (self.DotList[400])
+        print (self.DotList2[400])
+        print (str(len(self.DotList)))
+        print (str(len(self.DotList2)))
         
     def __init__(self):
-        print "RenderPls init"
+        print ("RenderPls init")
         
         self.resetDotList()
         
@@ -97,12 +97,12 @@ class RenderPls ():
     def setupVariable(self):
         glutInit(sys.argv)
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
-        glutInitWindowSize(winWidth, winHeight)
+        glutInitWindowSize(winSize[0], winSize[1])
         glutCreateWindow(name)
 
         glClearColor(0.,0.,0.,1.)
         glutDisplayFunc(self.display)
-        gluOrtho2D(0, winWidth, winHeight, 0);
+        gluOrtho2D(0, winSize[0], winSize[1], 0);
         glMatrixMode(GL_MODELVIEW);
         glPushMatrix()
 
@@ -119,7 +119,7 @@ class RenderPls ():
 
         glutMainLoop()
 
-        print "end"
+        print ("end")
         
         return
 
@@ -153,12 +153,12 @@ class RenderPls ():
         glColor3f(1.0, 0.0, 0.0);
 
 
-        glVertex2f(winWidth / 2, 0);
-        glVertex2f(winWidth / 2, winHeight);
+        glVertex2f(winSize[0] / 2, 0);
+        glVertex2f(winSize[0] / 2, winSize[1]);
         # right line
         glColor3f(0.0, 1.0, 0.0);
-        glVertex2f(0, winHeight / 2);
-        glVertex2f(winWidth, winHeight / 2);
+        glVertex2f(0, winSize[1] / 2);
+        glVertex2f(winSize[0], winSize[1] / 2);
 
 
 
@@ -199,15 +199,15 @@ class RenderPls ():
 
         glColor3f(1.0, 1.0, 1.0);
 
-        glVertex2f(winWidth / 2 ,winHeight / 2)
-        glVertex2f(winWidth / 2 , cos(0) * self.drawYHigh)
+        glVertex2f(winSize[0] / 2 ,winSize[1] / 2)
+        glVertex2f(winSize[0] / 2 , cos(0) * self.drawYHigh)
 
         
         glEnd();
         glPopMatrix()
         glutSwapBuffers()
         glutPostRedisplay()
-        return
+        #return
 
 class myThread (threading.Thread):
     def __init__(self, threadID, name, counter, renderPls):
@@ -218,19 +218,19 @@ class myThread (threading.Thread):
         self.counter = counter
         
     def run(self):
-        print "Starting " + self.name
+        print ("Starting " + self.name)
         
         while(True):
             self.counter = self.counter + 1
     
-            print "myThread Force display  : " + str(self.counter)
+            print ("myThread Force display  : " + str(self.counter))
             time.sleep(0.5)
             #self.renderPls.display()
-            #glutPostRedisplay()
+            glutPostRedisplay()
 
-            print "myThread Force display 2"
+            print ("myThread Force display 2")
             
 
-        print "Exiting " + self.name
+        print ("Exiting " + self.name)
 
 if __name__ == '__main__': main()
