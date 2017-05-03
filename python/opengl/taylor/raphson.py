@@ -20,13 +20,13 @@ def main():
     tmpRen.setupVariable()
     
 class RenderPls ():
-    mmmX = [-20, 20]
+    mmmX = [-100, 100]
     xStep = [0.1]
 
     counter =[0]    
 
-    drawXSpace = [100]
-    drawYHigh = [100]
+    drawXSpace = [50]
+    drawYHigh = [10]
 
     degree = [0]
 
@@ -38,13 +38,13 @@ class RenderPls ():
     DotList3 = []
 
     def p2(self,x):
-        j = (3*pow(x, 2)  ) - (2*x) - 1
+        j =  +(1.5* pow(x, 2)  ) - (8*x) + 1
            
         return j
 
         
     def p1(self,x):
-        j = (pow(x, 3)) - (pow(x,2)) - (pow(x,1)) - 1
+        j =  + (0.5*pow(x, 3)) - (4*pow(x,2)) + (pow(x,1)) - 1
            
         return j
 
@@ -78,7 +78,7 @@ class RenderPls ():
         tmpList = []
         self.DotList3 = []
 
-        start = -2.1
+        start =  -10.0
         
         tmpList.append([ start,start  - (self.p1(start)/self.p2(start))])
         self.DotList3.append([ start*self.drawXSpace[0]
@@ -93,7 +93,7 @@ class RenderPls ():
             print tmp
             print tmp2
             print tmpList[lop-1]
-            self.DotList3.append([ tmp2 * self.drawXSpace[0],self.p1(tmp) * self.drawYHigh[0]])
+            self.DotList3.append([ tmp * self.drawXSpace[0],self.p1(tmp) * self.drawYHigh[0]])
             tmpList.append([ tmp2 ,tmp ])
 
             if (self.p1(tmp) == 0 or abs(0-self.p1(tmp)) < 0.001):
@@ -127,7 +127,7 @@ class RenderPls ():
         glutInitWindowSize(winSize[0], winSize[1])
         glutCreateWindow(name)
 
-        glClearColor(0.,0.,0.,0.)
+        glClearColor(0.2,0.2,0.2,0.)
 
         
         glutDisplayFunc(self.display)
@@ -189,14 +189,14 @@ class RenderPls ():
         glVertex2f(-winSize[0] , 0);
         glVertex2f(winSize[0] , 0);
         # right line
-        glColor3f(0.0, 1.0, 0.0);
+       # glColor3f(0.0, 1.0, 0.0);
         glVertex2f(0, -winSize[1]);
         glVertex2f(0, winSize[1]);
 
         # top line
 
         
-        glColor3f(1.0, 0.5, 0.5);
+        glColor3f(1.0, 0.0, 1.0);
 
         lop = 0
         while (lop < len(self.DotList)-1):
@@ -213,7 +213,7 @@ class RenderPls ():
             lop = lop + 1
 
 
-        glColor3f(0.5, 0.5, 1.0);
+        glColor3f(0.3, 0.0, 1.0);
         lop = 0
         while (lop < len(self.DotList)-1):
             tmpX = self.DotList2[lop][0];
@@ -234,8 +234,8 @@ class RenderPls ():
 
         tmpColor = 0.0
         while (lop < len(self.DotList3)-1):
-            glColor3f(1.0, 1.0, 1.0/(tmpColor+0.00001));
-            tmpColor = tmpColor + 1
+            glColor3f((tmpColor),tmpColor,tmpColor);
+            tmpColor = tmpColor + (1.0 / len(self.DotList3))
 
             
             tmpX = self.DotList3[lop][0];
