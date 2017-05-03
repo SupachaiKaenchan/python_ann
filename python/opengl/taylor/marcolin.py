@@ -23,7 +23,7 @@ class RenderPls ():
     mmmX = [-100.0, 100]
     xStep = [0.1]
 
-    
+    counter =[0]    
 
     drawXSpace = [10]
     drawYHigh = [100]
@@ -63,6 +63,9 @@ class RenderPls ():
 
         
     def resetDotList(self):
+        self.counter[0] = self.counter[0] + 1
+        print self.counter
+    
         self.DotList = []
         self.DotList2 = []
         
@@ -93,7 +96,9 @@ class RenderPls ():
 
 
     def myIdle(self):
+        #print ("myIdle")
         glutPostRedisplay()
+        
         
     def setupVariable(self):
         glutInit(sys.argv)
