@@ -20,14 +20,15 @@ def main():
     tmpRen.setupVariable()
     
 class RenderPls ():
-    minX = -100.0
-    maxX = 100.0
-    xStep = 0.1
+    mmmX = [-100.0, 100]
+    xStep = [0.1]
 
-    drawXSpace = 10
-    drawYHigh = 100
+    
 
-    degree = 0
+    drawXSpace = [10]
+    drawYHigh = [100]
+
+    degree = [0]
 
 
     DotList = []
@@ -42,7 +43,7 @@ class RenderPls ():
         #
 
         lop = 1
-        while (lop < self.degree):
+        while (lop < self.degree[0]):
             tmp = 0
             if (lop % 4 == 1):
                 tmp = -sin(0)
@@ -65,17 +66,17 @@ class RenderPls ():
         self.DotList = []
         self.DotList2 = []
         
-        lop = self.minX
-        while (lop <= self.maxX):
-            g = [(lop*self.drawXSpace)+ (winSize[0]/2),(winSize[1] / 2)+ (cos(lop)*self.drawYHigh)]
+        lop = self.mmmX[0]
+        while (lop <= self.mmmX[1]):
+            g = [(lop*self.drawXSpace[0])+ (winSize[0]/2),(winSize[1] / 2)+ (cos(lop)*self.drawYHigh[0])]
             self.DotList.append(g)
-            lop = lop + self.xStep
+            lop = lop + self.xStep[0]
 
             
-            g = [(lop*self.drawXSpace)+ (winSize[0]/2) ,  (winSize[1] / 2)+ ((self.p1(lop))*(self.drawYHigh)) ]
+            g = [(lop*self.drawXSpace[0])+ (winSize[0]/2) ,  (winSize[1] / 2)+ ((self.p1(lop))*(self.drawYHigh[0])) ]
             #g = [0,0]
             self.DotList2.append(g)
-            lop = lop + self.xStep
+            lop = lop + self.xStep[0]
 
 
         print (self.DotList[400])
@@ -90,21 +91,22 @@ class RenderPls ():
         
 
 
-                            
-            
-    
+
+    def myIdle(self):
+        glutPostRedisplay()
         
     def setupVariable(self):
         glutInit(sys.argv)
-        glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
+        glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB )
         glutInitWindowSize(winSize[0], winSize[1])
         glutCreateWindow(name)
 
         glClearColor(0.,0.,0.,1.)
         glutDisplayFunc(self.display)
         gluOrtho2D(0, winSize[0], winSize[1], 0);
-        glMatrixMode(GL_MODELVIEW);
         glPushMatrix()
+
+        glutIdleFunc(self.myIdle)
 
         glutMouseFunc(self.mouseEvent);
 
@@ -139,19 +141,20 @@ class RenderPls ():
         if button == GLUT_RIGHT_BUTTON:    
             if(state == GLUT_DOWN):
                 print ("right click test " + str(x) + " , " + str(y))
-                self.degree = self.degree + 1
+                self.degree[0] = self.degree[0] + 1
 
                 self.resetDotList()
                 
 
     def display(self):
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+        
         glPushMatrix()
-        glLineWidth(2.5);     
+        glLineWidth(2.5);
+        
         glBegin(GL_LINES);
         # left line
         glColor3f(1.0, 0.0, 0.0);
-
 
         glVertex2f(winSize[0] / 2, 0);
         glVertex2f(winSize[0] / 2, winSize[1]);
@@ -160,9 +163,6 @@ class RenderPls ():
         glVertex2f(0, winSize[1] / 2);
         glVertex2f(winSize[0], winSize[1] / 2);
 
-
-
-        
         # top line
         glColor3f(0.0, 1.0, 1.0);
 
@@ -200,12 +200,14 @@ class RenderPls ():
         glColor3f(1.0, 1.0, 1.0);
 
         glVertex2f(winSize[0] / 2 ,winSize[1] / 2)
-        glVertex2f(winSize[0] / 2 , cos(0) * self.drawYHigh)
+        glVertex2f(winSize[0] / 2 , cos(0) * self.drawYHigh[0])
 
         
         glEnd();
         glPopMatrix()
+        
         glutSwapBuffers()
+        
         glutPostRedisplay()
         #return
 
