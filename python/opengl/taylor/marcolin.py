@@ -54,7 +54,7 @@ class RenderPls ():
             elif (lop % 4 == 0):
                 tmp = cos(0)
         
-            j = j + (((tmp))* ( pow(x,lop) )/ factorial(lop))
+            j = j + ((tmp)* ( pow(x,lop) )/ factorial(lop))
             lop = lop + 1
 
         #print j
@@ -79,10 +79,14 @@ class RenderPls ():
             g = [(lop*self.drawXSpace[0]) ,((self.p1(lop))*(self.drawYHigh[0])) ]
             #g = [0,0]
             self.DotList2.append(g)
+            
             lop = lop + self.xStep[0]
 
+            if (lop > 10.0 and lop < 10.2):
+                print ("******* lop " + str(lop) + " = " + str(self.p1(lop)))
 
-        for i in range(50 , 60):
+
+        for i in range(50 , 55):
             print (str(i) + ": " + str(self.DotList[i]) + " = " + str(self.DotList2[i]))
             
         print ("counter " + str(self.counter[0])  + " , degree " + str(self.degree[0]))
@@ -153,7 +157,7 @@ class RenderPls ():
         if button == GLUT_RIGHT_BUTTON:    
             if(state == GLUT_DOWN):
                 print ("right click test " + str(x) + " , " + str(y))
-                self.degree[0] = self.degree[0] + 1
+                self.degree[0] = self.degree[0] + 2
 
                 self.resetDotList()
                 
