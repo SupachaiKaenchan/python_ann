@@ -20,7 +20,7 @@ def main():
     tmpRen.setupVariable()
     
 class RenderPls ():
-    mmmX = [-100.0, 100]
+    mmmX = [-20, 20]
     xStep = [0.1]
 
     counter =[0]    
@@ -71,19 +71,22 @@ class RenderPls ():
         
         lop = self.mmmX[0]
         while (lop <= self.mmmX[1]):
-            g = [(lop*self.drawXSpace[0])+ (winSize[0]/2),(winSize[1] / 2)+ (cos(lop)*self.drawYHigh[0])]
+            g = [(lop*self.drawXSpace[0]), (cos(lop)*self.drawYHigh[0])]
             self.DotList.append(g)
             lop = lop + self.xStep[0]
 
             
-            g = [(lop*self.drawXSpace[0])+ (winSize[0]/2) ,  (winSize[1] / 2)+ ((self.p1(lop))*(self.drawYHigh[0])) ]
+            g = [(lop*self.drawXSpace[0]) ,((self.p1(lop))*(self.drawYHigh[0])) ]
             #g = [0,0]
             self.DotList2.append(g)
             lop = lop + self.xStep[0]
 
 
-        print (self.DotList[400])
-        print (self.DotList2[400])
+        for i in range(50 , 60):
+            print (str(i) + ": " + str(self.DotList[i]) + " = " + str(self.DotList2[i]))
+            
+        print ("counter " + str(self.counter[0])  + " , degree " + str(self.degree[0]))
+
         print (str(len(self.DotList)))
         print (str(len(self.DotList2)))
         
@@ -106,9 +109,13 @@ class RenderPls ():
         glutInitWindowSize(winSize[0], winSize[1])
         glutCreateWindow(name)
 
-        glClearColor(0.,0.,0.,1.)
+        glClearColor(0.,0.,0.,0.)
+
+        
         glutDisplayFunc(self.display)
-        gluOrtho2D(0, winSize[0], winSize[1], 0);
+        
+        
+        gluOrtho2D(-winSize[0], winSize[0], -winSize[1], winSize[1]);
         glPushMatrix()
 
         glutIdleFunc(self.myIdle)
@@ -161,12 +168,12 @@ class RenderPls ():
         # left line
         glColor3f(1.0, 0.0, 0.0);
 
-        glVertex2f(winSize[0] / 2, 0);
-        glVertex2f(winSize[0] / 2, winSize[1]);
+        glVertex2f(-winSize[0] , 0);
+        glVertex2f(winSize[0] , 0);
         # right line
         glColor3f(0.0, 1.0, 0.0);
-        glVertex2f(0, winSize[1] / 2);
-        glVertex2f(winSize[0], winSize[1] / 2);
+        glVertex2f(0, -winSize[1]);
+        glVertex2f(0, winSize[1]);
 
         # top line
         glColor3f(0.0, 1.0, 1.0);
@@ -204,8 +211,8 @@ class RenderPls ():
 
         glColor3f(1.0, 1.0, 1.0);
 
-        glVertex2f(winSize[0] / 2 ,winSize[1] / 2)
-        glVertex2f(winSize[0] / 2 , cos(0) * self.drawYHigh[0])
+        #glVertex2f(winSize[0] / 2 ,winSize[1] / 2)
+        #glVertex2f(winSize[0] / 2 , cos(0) * self.drawYHigh[0])
 
         
         glEnd();
@@ -213,7 +220,7 @@ class RenderPls ():
         
         glutSwapBuffers()
         
-        glutPostRedisplay()
+        #glutPostRedisplay()
         #return
 
 class myThread (threading.Thread):
