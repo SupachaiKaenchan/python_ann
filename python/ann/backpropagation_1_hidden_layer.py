@@ -13,7 +13,7 @@ X = np.array([  [0,0,1],
                 [1,1,1] ])
     
 # output dataset            
-y = np.array([[0,0,1,1]]).T
+y = np.array([[0,1,1,1]]).T
 
 # seed random numbers to make calculation
 # deterministic (just a good practice)
@@ -34,7 +34,10 @@ for iter in xrange(10000):
     l1_error = y - l1
     
     if (iter% 1000) == 0:
+        print "---------------------------_"
         print "Error:" + str(np.mean(np.abs(l1_error)))
+        print "learning epoch : " + str(iter)
+        print l1
         
     # multiply how much we missed by the 
     # slope of the sigmoid at the values in l1
@@ -43,5 +46,8 @@ for iter in xrange(10000):
     # update weights
     syn0 += np.dot(l0.T,l1_delta)
 
+print "*********************"
+
+test = nonlin(np.dot(X,syn0))
 print "Output After Training:"
-print l1
+print test
