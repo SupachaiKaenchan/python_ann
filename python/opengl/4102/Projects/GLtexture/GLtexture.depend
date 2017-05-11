@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1479437830 source:/home/annupan/Workspaces/GL/GLtexture/main.cpp
+	<GL/glut.h>
+	<stdio.h>
+	<ctype.h>
+	<cmath>
+	"Building.h"
+	"Sun.h"
+	"Tree.h"
+	"Texture.h"
+
+1384974356 /home/annupan/Workspaces/GL/GLtexture/Building.h
+
+1431925544 /home/annupan/Workspaces/GL/GLtexture/Sun.h
+
+1384974546 /home/annupan/Workspaces/GL/GLtexture/Tree.h
+
+1385578130 /home/annupan/Workspaces/GL/GLtexture/Texture.h
+	<iostream>
+
