@@ -7,7 +7,7 @@ import threading
 import time
 from math import cos,sin,  factorial
 
-name = 'raphson'
+name = 'lagrang'
 
 
 
@@ -37,28 +37,58 @@ class RenderPls ():
 
     DotList3 = []
 
+    tmpData = []
+
     def p2(self,x):
         j =  +(1.5* pow(x, 2)  ) - (8*x) + 1
            
         return j
 
+    def secant (self,x1,x0):
+        y = x1 - ( self.func(x1) *  (x1-x0) ) /( self.func(x1)-( self.func(x0) ))
+        return y
+
         
-    def p1(self,x):
-        j =  + (0.5*pow(x, 3)) - (4*pow(x,2)) + (pow(x,1)) - 1
+    def func(self,x):
+        #j =  + (0.5*pow(x, 3)) - (4*pow(x,2)) + (pow(x,1)) - 1
+        j =  + (2*pow(x, 3)) - (3*pow(x,2)) + (0.2*pow(x,1)) - 1
            
         return j
+
+        
+
+    def resetTmpData(self):
+        self.tmpData = []
+
+        for i in range(0,10):
+            x = i
+            y = (random.random()*10)-20
+
+            list = [x,y]
+            self.tmpData.append(list)
+            
 
         
     def resetDotList(self):
         self.counter[0] = self.counter[0] + 1
         print self.counter
+
+
+        self.resetTmpData()
+        
     
         self.DotList = []
         self.DotList2 = []
+
+        tP0 = (random.random() * 5.0) - 10.0
+        tP1 = (random.random() * 5.0) - 10.0
+    
         
-        lop = self.mmmX[0]
-        while (lop <= self.mmmX[1]):
-            g = [(lop*self.drawXSpace[0]), (self.p1(lop)*self.drawYHigh[0])]
+        lop = 0
+        while (lop < len(self.tmpData)):
+
+            print self.tmpData[lop]
+            g = [(self.tmpData[lop][0]*self.drawXSpace[0]), (self.tmpData[lop][1]*self.drawYHigh[0])]
             self.DotList.append(g)
             #lop = lop + self.xStep[0]
 
@@ -67,10 +97,10 @@ class RenderPls ():
             #g = [0,0]
             self.DotList2.append(g)
             
-            lop = lop + self.xStep[0]
+            lop = lop + 1
 
-            if (lop > 10.0 and lop < 10.2):
-                print ("******* lop " + str(lop) + " = " + str(self.p1(lop)))
+            if (lop > 10 and lop < 10):
+                print ("******* lop " + str(lop) + " = " + str(self.func(lop)))
 
 
         lop = 1
@@ -78,28 +108,6 @@ class RenderPls ():
         tmpList = []
         self.DotList3 = []
 
-        start = ( random.random()*10) -20
-        
-        tmpList.append([ start,start  - (self.p1(start)/self.p2(start))])
-        self.DotList3.append([ start*self.drawXSpace[0]
-                               ,(start  - (self.p1(start)/self.p2(start)))*self.drawYHigh[0]])
-
-
-        
-        while(lop < 100):
-            tmp2 = tmpList[lop-1][1]
-            tmp = tmp2 - (self.p1(tmp2)/self.p2(tmp2))
-
-            print tmp
-            print tmp2
-            print tmpList[lop-1]
-            self.DotList3.append([ tmp * self.drawXSpace[0],self.p1(tmp) * self.drawYHigh[0]])
-            tmpList.append([ tmp2 ,tmp ])
-
-            if (self.p1(tmp) == 0 or abs(0-self.p1(tmp)) < 0.001):
-                break
-            
-            lop = lop + 1
 
            
         print ("counter " + str(self.counter[0])  + " , degree " + str(self.degree[0]))

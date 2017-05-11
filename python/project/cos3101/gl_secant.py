@@ -7,7 +7,7 @@ import threading
 import time
 from math import cos,sin,  factorial
 
-name = 'raphson'
+name = 'secant'
 
 
 
