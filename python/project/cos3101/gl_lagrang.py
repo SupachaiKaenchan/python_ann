@@ -20,7 +20,7 @@ def main():
     tmpRen.setupVariable()
     
 class RenderPls ():
-    mmmX = [-100, 100]
+    mmmX = [0, 10]
     xStep = [0.1]
 
     counter =[0]    
@@ -44,9 +44,31 @@ class RenderPls ():
            
         return j
 
-    def secant (self,x1,x0):
-        y = x1 - ( self.func(x1) *  (x1-x0) ) /( self.func(x1)-( self.func(x0) ))
-        return y
+    def lagrangSub (self,inputList , x , index):
+        # [xi , yi]
+        
+        r1 = inputList[index][1]
+        r2 = 1
+
+        for i in range( 0, len(inputList) ):
+                
+            if (i == index):
+                continue
+            else:
+                r2 = r2 * ((x-i)/(r1-i))
+
+
+        r3 = r2 * r1
+        
+        return r3
+
+    def lagrang (self,inputList , x ):
+        r1 = 0
+
+        for i in range(0,len(inputList)):
+            r1 = r1 + self.lagrangSub(self.tmpData, x , i)
+            
+        return r1
 
         
     def func(self,x):
@@ -60,9 +82,9 @@ class RenderPls ():
     def resetTmpData(self):
         self.tmpData = []
 
-        for i in range(0,10):
+        for i in range(self.mmmX[0],self.mmmX[1]):
             x = i
-            y = (random.random()*10)-20
+            y = (random.random()*10.0)-5.0
 
             list = [x,y]
             self.tmpData.append(list)
@@ -95,7 +117,7 @@ class RenderPls ():
             
             g = [(lop*self.drawXSpace[0]) ,((self.p2(lop))*(self.drawYHigh[0])) ]
             #g = [0,0]
-            self.DotList2.append(g)
+            #self.DotList2.append(g)
             
             lop = lop + 1
 
@@ -109,6 +131,19 @@ class RenderPls ():
         self.DotList3 = []
 
 
+        lop2 = self.mmmX[0]
+        #lop2 = 0
+        g = 0
+        
+        while(lop2 < self.mmmX[1]):
+            
+
+            g = [(lop2*self.drawXSpace[0]) ,((self.lagrang(self.tmpData,lop2))) ]
+            print ("lop2 " , lop2 , " g = " ,g)
+            self.DotList3.append(g)
+            
+            lop2 = lop2 + self.xStep[0]
+        
            
         print ("counter " + str(self.counter[0])  + " , degree " + str(self.degree[0]))
 
@@ -223,7 +258,7 @@ class RenderPls ():
 
         glColor3f(0.3, 0.0, 1.0);
         lop = 0
-        while (lop < len(self.DotList)-1):
+        while (lop < len(self.DotList2)-1):
             tmpX = self.DotList2[lop][0];
             tmpY = self.DotList2[lop][1];
 
