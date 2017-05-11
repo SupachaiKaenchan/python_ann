@@ -20,7 +20,7 @@ def main():
     tmpRen.setupVariable()
     
 class RenderPls ():
-    mmmX = [0, 20]
+    mmmX = [0, 15]
     xStep = [0.1]
 
     counter =[0]    
@@ -176,7 +176,8 @@ class RenderPls ():
         glutDisplayFunc(self.display)
         
         
-        gluOrtho2D(-winSize[0], winSize[0], -winSize[1], winSize[1]);
+        #gluOrtho2D(-winSize[0], winSize[0], -winSize[1], winSize[1]);
+        gluOrtho2D(-10, winSize[0], -winSize[1], winSize[1]);
         glPushMatrix()
 
         glutIdleFunc(self.myIdle)
@@ -221,9 +222,35 @@ class RenderPls ():
 
     def display(self):
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+
+
+
+        for tmpX in range(0, len(self.DotList3)):
+            glBegin(GL_LINES)
+            glColor3f(0.2,0.2,0.5);
+            
+            xxx = tmpX * self.drawXSpace[0];
+            yyy = winSize[1]/2;
+
+            glVertex2f(xxx , yyy)
+
+            xxx = tmpX * self.drawXSpace[0];
+            #global winSize
+            yyy = -winSize[1]/2;
+
+            glVertex2f(xxx , yyy)
+            glEnd()
+
+        glColor3f(1.0, 1.0, 1.0);
+        
         
         glPushMatrix()
         glLineWidth(2.5);
+
+
+
+
+        
         
         glBegin(GL_LINES);
         # left line
@@ -237,6 +264,8 @@ class RenderPls ():
         glVertex2f(0, winSize[1]);
 
         # top line
+
+
 
         
         glColor3f(1.0, 0.0, 1.0);
@@ -299,23 +328,7 @@ class RenderPls ():
 
 
 
-        for tmpX in range(0, len(self.DotList3)):
-            glBegin(GL_LINES)
-            glColor3f(0.2,0.2,0.5);
-            
-            xxx = tmpX * self.drawXSpace[0];
-            yyy = winSize[1]/2;
 
-            glVertex2f(xxx , yyy)
-
-            xxx = tmpX * self.drawXSpace[0];
-            #global winSize
-            yyy = -winSize[1]/2;
-
-            glVertex2f(xxx , yyy)
-            glEnd()
-
-        glColor3f(1.0, 1.0, 1.0);
 
         #glVertex2f(winSize[0] / 2 ,winSize[1] / 2)
         #glVertex2f(winSize[0] / 2 , cos(0) * self.drawYHigh[0])
