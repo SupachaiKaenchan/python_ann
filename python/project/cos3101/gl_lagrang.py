@@ -20,7 +20,7 @@ def main():
     tmpRen.setupVariable()
     
 class RenderPls ():
-    mmmX = [0, 10]
+    mmmX = [0, 20]
     xStep = [0.1]
 
     counter =[0]    
@@ -276,6 +276,7 @@ class RenderPls ():
 
 
         tmpColor = 0.0
+        
         while (lop < len(self.DotList3)-1):
             glColor3f((tmpColor),tmpColor,tmpColor);
             tmpColor = tmpColor + (1.0 / len(self.DotList3))
@@ -291,18 +292,37 @@ class RenderPls ():
 
             glVertex2f(tmpX2 , tmpY2)
             lop = lop + 1
-            
 
- 
+
+        glEnd();
+        glPopMatrix()
+
+
+
+        for tmpX in range(0, len(self.DotList3)):
+            glBegin(GL_LINES)
+            glColor3f(0.2,0.2,0.5);
+            
+            xxx = tmpX * self.drawXSpace[0];
+            yyy = winSize[1]/2;
+
+            glVertex2f(xxx , yyy)
+
+            xxx = tmpX * self.drawXSpace[0];
+            #global winSize
+            yyy = -winSize[1]/2;
+
+            glVertex2f(xxx , yyy)
+            glEnd()
 
         glColor3f(1.0, 1.0, 1.0);
 
         #glVertex2f(winSize[0] / 2 ,winSize[1] / 2)
         #glVertex2f(winSize[0] / 2 , cos(0) * self.drawYHigh[0])
 
+
         
-        glEnd();
-        glPopMatrix()
+
         
         glutSwapBuffers()
         
