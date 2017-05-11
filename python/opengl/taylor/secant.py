@@ -42,11 +42,20 @@ class RenderPls ():
            
         return j
 
+    def secant (self,x1,x0):
+        y = x1 - ( self.func(x1) *  (x1-x0) ) /( self.func(x1)-( self.func(x0) ))
+        return y
+
         
-    def p1(self,x):
-        j =  + (0.5*pow(x, 3)) - (4*pow(x,2)) + (pow(x,1)) - 1
+    def func(self,x):
+        #j =  + (0.5*pow(x, 3)) - (4*pow(x,2)) + (pow(x,1)) - 1
+        j =  + (2*pow(x, 3)) - (3*pow(x,2)) + (0.2*pow(x,1)) - 1
            
         return j
+
+        
+
+    
 
         
     def resetDotList(self):
@@ -55,10 +64,16 @@ class RenderPls ():
     
         self.DotList = []
         self.DotList2 = []
+
+        tP0 = (random.random() * 5.0) - 10.0
+        tP1 = (random.random() * 5.0) - 10.0
+    
         
         lop = self.mmmX[0]
         while (lop <= self.mmmX[1]):
-            g = [(lop*self.drawXSpace[0]), (self.p1(lop)*self.drawYHigh[0])]
+
+            
+            g = [(lop*self.drawXSpace[0]), (self.func(lop)*self.drawYHigh[0])]
             self.DotList.append(g)
             #lop = lop + self.xStep[0]
 
@@ -70,7 +85,7 @@ class RenderPls ():
             lop = lop + self.xStep[0]
 
             if (lop > 10.0 and lop < 10.2):
-                print ("******* lop " + str(lop) + " = " + str(self.p1(lop)))
+                print ("******* lop " + str(lop) + " = " + str(self.func(lop)))
 
 
         lop = 1
@@ -78,26 +93,33 @@ class RenderPls ():
         tmpList = []
         self.DotList3 = []
 
-        start =  3.0
+
+
+        tmpAddList = [tP0,tP1]
         
-        tmpList.append([ start,start  - (self.p1(start)/self.p2(start))])
-        self.DotList3.append([ start*self.drawXSpace[0]
-                               ,(start  - (self.p1(start)/self.p2(start)))*self.drawYHigh[0]])
+        tmpList.append([  tmpAddList , self.secant(tP0,tP1)])
+        self.DotList3.append([ tP0*self.drawXSpace[0]
+                               ,(self.secant(tP0,tP1))*self.drawYHigh[0]])
 
 
         
-        while(lop < 100):
-            tmp2 = tmpList[lop-1][1]
-            tmp = tmp2 - (self.p1(tmp2)/self.p2(tmp2))
+        while(lop < 1000):
 
-            print tmp
-            print tmp2
-            print tmpList[lop-1]
-            self.DotList3.append([ tmp * self.drawXSpace[0],self.p1(tmp) * self.drawYHigh[0]])
-            tmpList.append([ tmp2 ,tmp ])
+            tP2 = self.secant(tP0,tP1)
+            
+            self.DotList3.append([ tP2 * self.drawXSpace[0],self.func(tP2) * self.drawYHigh[0]])
+            rr = [tP0,tP1]
+            tmpList.append([ rr ,tP2 ])
 
-            if (self.p1(tmp) == 0 or abs(0-self.p1(tmp)) < 0.001):
+
+            print ("p 0 1 2 = " + str(tP0) + " , " + str(tP1) + " , " + str(tP2))
+            print ("lop " + str(lop) + " = " + str(self.func(tP2)))
+
+            if (self.func(tP2) == 0 or abs(0-self.func(tP2)) < 0.001):
                 break
+
+            tP0 = tP1
+            tP1 = tP2
             
             lop = lop + 1
 
