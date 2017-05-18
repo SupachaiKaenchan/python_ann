@@ -139,7 +139,7 @@ class RenderPls ():
             
 
             g = [(lop2*self.drawXSpace[0]) ,((self.lagrang(self.tmpData,lop2))) ]
-            print ("lop2 " , lop2 , " g = " ,g)
+            #print ("lop2 " , lop2 , " g = " ,g)
             self.DotList3.append(g)
             
             lop2 = lop2 + self.xStep[0]
