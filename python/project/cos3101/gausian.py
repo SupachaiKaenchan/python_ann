@@ -69,7 +69,7 @@ print "after " , matrix1, " output " ,  output
 
 
 # find out z y x
-
+'''
 ttY = output[1][0] / matrix1[1][1]
 
 print "new Y " ,ttY
@@ -80,3 +80,51 @@ print "output[0][0] /  (matrix1[0][1]*ttY)" , output[0][0] -  (matrix1[0][1]*ttY
 
 testValue =  (matrix1[0][0] * ttX  ) + (matrix1[0][1] * ttY)
 print testValue , (matrix1[0][0] * ttX  ) ,(matrix1[0][1] * ttY)
+'''
+
+
+bDash = np.zeros(rowSize)
+print "bdash " , bDash
+
+#loop backward
+
+bLoop = rowSize - 1
+
+
+# replace known and find out next Variable
+
+
+while (bLoop >= 0): #  loop backWard Row
+    print ""
+    print "bLoop " , bLoop , " = " ,  matrix1[bLoop]
+
+    cLoop = columnSize - 1
+
+    tSum = 0
+
+    
+    while(cLoop >= 1 ):  # loop backWard Column
+        print "cLoop " ,cLoop
+        
+        
+        if (bLoop < columnSize -1): # it's mean we have known variable to replace
+            print "*debug bdash " , bDash
+            print "*debug " , matrix1[bLoop][cLoop] , bDash[cLoop]
+            tSum = tSum + ( matrix1[bLoop][cLoop] * bDash[cLoop] )
+            print "known variable ", tSum , "bLoop " , bLoop ," cLoop ", cLoop 
+
+
+        print "output[bLoop] " , output[bLoop] , " tsum " , tSum
+        bDash[bLoop] = (output[bLoop] - tSum) / matrix1[bLoop][cLoop]
+        print "**debug " , (output[bLoop] - tSum) , matrix1[bLoop][cLoop]
+        
+        print "bDash[bLoop] " , bDash[bLoop]
+
+        print "bDash[] " , bDash            
+        cLoop = cLoop - 1
+    
+        
+
+
+    
+    bLoop  = bLoop - 1
