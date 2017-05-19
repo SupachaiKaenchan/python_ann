@@ -1,5 +1,7 @@
 import numpy as np
 
+# set simple matrix
+
 matrix1 = np.array([[2.0 , 4.0 ]
                    ,[3.0 , -4.0 ]])
 
@@ -9,6 +11,7 @@ output = np.array([[6],[-1]])
 print matrix1
 print output
 
+# find out row and column of Matrix1
 
 rowSize = len(matrix1)
 columnSize = len(matrix1[0])
@@ -16,6 +19,9 @@ columnSize = len(matrix1[0])
 print ""
 print "r,c size " , rowSize, columnSize
 print ""
+
+
+# loop for set some value under cross line to zero
 
 for i in range (1 , rowSize):
     for j in range (0,i):
@@ -69,19 +75,6 @@ print "after " , matrix1, " output " ,  output
 
 
 # find out z y x
-'''
-ttY = output[1][0] / matrix1[1][1]
-
-print "new Y " ,ttY
-ttX =  (output[0][0] -  (matrix1[0][1]*ttY) ) / matrix1[0][0]
-print "new X " , ttX , output[0][0] ,  (matrix1[0][1]*ttY) , matrix1[0][0]
-print "output[0][0] /  (matrix1[0][1]*ttY)" , output[0][0] -  (matrix1[0][1]*ttY)
-
-
-testValue =  (matrix1[0][0] * ttX  ) + (matrix1[0][1] * ttY)
-print testValue , (matrix1[0][0] * ttX  ) ,(matrix1[0][1] * ttY)
-'''
-
 
 bDash = np.zeros(rowSize)
 print "bdash " , bDash
