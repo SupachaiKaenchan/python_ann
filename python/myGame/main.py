@@ -5,6 +5,7 @@ import sys
 import random
 import threading
 import time
+import Tank as DewTank
 
 name = 'Galaxy War'
 
@@ -29,6 +30,8 @@ class RenderPls ():
 
     lx = 0
     ly = 0
+
+    myTank = DewTank
     
     def __init__(self):
         print "RenderPls init"
@@ -75,6 +78,9 @@ class RenderPls ():
                 print ("click " + str(x) + " ," + str(y))
 
                 tmpC = [x,y]
+
+                myTank.setX(x)
+                myTank.setY(y)
                 
 
         if button == GLUT_RIGHT_BUTTON:    
@@ -131,7 +137,7 @@ class RenderPls ():
         tmpX = self.lx;
         tmpY = self.ly;
 
-        glVertex2f(tmpX , tmpY)
+        glVertex2f(self.myTank.getX(), self.myTank.getY())
 
 
         tmpX2 = 0;

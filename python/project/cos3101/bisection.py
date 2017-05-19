@@ -4,11 +4,8 @@ def f (x ) :
     return y
 
 
-
 a = -10.0
 b = 50.0
-
-
 
 
 flag = True
