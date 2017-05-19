@@ -103,27 +103,30 @@ while (bLoop >= 0): #  loop backWard Row
     tSum = 0
 
     
-    while(cLoop >= 1 ):  # loop backWard Column
+    while(cLoop >= 0 ):  # loop backWard Column
         print "cLoop " ,cLoop
         
         
-        if (bLoop < columnSize -1): # it's mean we have known variable to replace
+        if (cLoop > bLoop ): # it's mean we have known variable to replace
             print "*debug bdash " , bDash
             print "*debug " , matrix1[bLoop][cLoop] , bDash[cLoop]
             tSum = tSum + ( matrix1[bLoop][cLoop] * bDash[cLoop] )
             print "known variable ", tSum , "bLoop " , bLoop ," cLoop ", cLoop 
 
+        elif (cLoop == bLoop):
+            
 
-        print "output[bLoop] " , output[bLoop] , " tsum " , tSum
-        bDash[bLoop] = (output[bLoop] - tSum) / matrix1[bLoop][cLoop]
-        print "**debug " , (output[bLoop] - tSum) , matrix1[bLoop][cLoop]
-        
-        print "bDash[bLoop] " , bDash[bLoop]
+            print "output[bLoop] " , output[bLoop] , " tsum " , tSum
+            bDash[bLoop] = (output[bLoop] - tSum) / matrix1[bLoop][cLoop]
+            print "**debug " , (output[bLoop] - tSum) , matrix1[bLoop][cLoop]
+            
+            print "bDash[bLoop] " , bDash[bLoop]
 
-        print "bDash[] " , bDash            
+            print "bDash[] " , bDash            
+
         cLoop = cLoop - 1
-    
         
+            
 
 
     
