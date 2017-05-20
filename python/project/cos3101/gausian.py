@@ -44,6 +44,16 @@ for i in range (1 , rowSize):
 
         #m =  matrix1[i-1][j] / matrix1[i][j]
 
+        if (matrix1[i-1][j]  == 0): # divide by zero
+            print ">swap<"
+            print "mat " , matrix1[i-1], matrix1[i]
+            tmpSwap = matrix1[i-1]
+            print matrix1[i-1],tmpSwap
+            matrix1[i-1] = matrix1[i]
+            print "mat " , matrix1[i-1], matrix1[i]
+            matrix1[i] = tmpSwap
+            print "mat " , matrix1[i-1], matrix1[i]
+
         m =   matrix1[i][j] / matrix1[i-1][j] 
 
 
@@ -77,9 +87,9 @@ for i in range (1 , rowSize):
         matrix1[i] = g3
         output[i] = g4
 
-        print ""
-        print ">>> " , matrix1, " output " ,  output 
-        print ""
+        print "@@@@@@@@@5@@@@@@@@@@@@@@@@@@@@@"
+        print "" , matrix1, " output " ,  output 
+        print "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
 print ""
 print "after " , matrix1, " output " ,  output

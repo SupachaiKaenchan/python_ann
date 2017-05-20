@@ -1,9 +1,9 @@
 class Tank:
 
 
-    def __init__(self, x,y):
-        self.x = x
-        self.y = y
+    def __init__(self):
+        self.x = 0
+        self.y = 0
 
 
     def setX(self,x):
@@ -23,7 +23,10 @@ class Tank:
         return self.y
 
 
-g = Tank
+g = Tank()
+
+print g
 g.setX(10)
+
 
 print g.getX()
