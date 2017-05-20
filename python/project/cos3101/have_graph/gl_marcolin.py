@@ -20,8 +20,8 @@ def main():
     tmpRen.setupVariable()
     
 class RenderPls ():
-    mmmX = [-20, 20]
-    xStep = [0.1]
+    mmmX = [-360, 360]
+    xStep = [1.0]
 
     counter =[0]    
 
