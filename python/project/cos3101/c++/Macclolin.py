@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 
 
 def mac2(x,x0,i): 
-    temp = 0.0
 
-    f0 = cos(x0)
+    f0 = cos(0)
 
     temp = f0 # output !
-    
-    for l in range(1,i):
+
+    l = 1
+    while(l < i):
 
 
         f1 = 0.0
@@ -18,22 +18,28 @@ def mac2(x,x0,i):
         j = l % 4
         
         if (j == 1):
-            f1 = -sin(x0)
+            f1 = -sin(0)
+            
         elif (j == 2):
-            f1 = -cos(x0)
+            f1 = -cos(0)
+            
         elif (j == 3) :
-            f1 = sin(x0)
+            f1 = sin(0)
+            
         elif (j == 4):
-            f1 = cos(x0)
+            f1 = cos(0)
 
-        f2 = f1 
+     
 
-        a1 = f2 * (pow(x,l))
+        a1 = f1 * (pow(x,l))
         a2 = factorial(l)
         #print ">>> " , "a1 " , a1 , "a2" , a2 , "f0" , f0 , "f1", f1 , "f2" , f2 , "l" , l
 
+        #temp = temp + ((f1)* ( pow(x,l) )/ factorial(l))
         
-        temp=temp + (a1 / a2)
+        temp = temp + (a1 / a2)
+
+        l = l + 1
        
     return temp
 
@@ -79,11 +85,11 @@ yExtend = 100
 while ( cur < n):
 
     x0=0.0
-    i=12
+    i=8
     
     
 
-    run = mac2(cur,x0,i)
+    run = mac(cur,x0,i)
     #run = sin(cur)
     #print run,cur
     
