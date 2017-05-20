@@ -6,6 +6,17 @@ matrix1 = np.array([[2.0 , 4.0 ]
                    ,[3.0 , -4.0 ]])
 
 output = np.array([[6],[-1]])
+
+
+matrix1 = np.array([[2.0 , 4.0 , -6.0]
+                   ,[3.0 , -4.0 , 2  ]
+                    ,[-5.0, 3.0, 4]
+
+                    ])
+
+output = np.array([[0],[-27],[-1]])
+
+
     
 
 print matrix1
@@ -95,6 +106,10 @@ while (bLoop >= 0): #  loop backWard Row
 
     tSum = 0
 
+    print ">>>>>>>>>"
+    print matrix1
+    print output
+    print "<<<<<<<<<"
     
     while(cLoop >= 0 ):  # loop backWard Column
         print "cLoop " ,cLoop
@@ -124,3 +139,9 @@ while (bLoop >= 0): #  loop backWard Row
 
     
     bLoop  = bLoop - 1
+
+
+    print ">>>>>>>>>"
+    print matrix1
+    print output
+    print "<<<<<<<<<"
