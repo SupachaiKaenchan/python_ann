@@ -10,15 +10,15 @@ matrix1 = np.array([[2.0 , 4.0 ]
 output = np.array([[6],[-1]])
 
 
-matrix1 = np.array([[2.0 , 4.0 , -6.0]
-                   ,[3.0 , -4.0 , 2  ]
-                    ,[-5.0, 3.0, 4]
+matrix1 = np.array([[2.0 , 4.0 , -2.0]
+                   ,[4.0 , 9.0 , -3.0  ]
+                    ,[-2.0, -3.0, 7.0]
 
                     ])
 
 oriMatrix1 = np.copy(matrix1)
 
-output = np.array([[0],[-27],[-1]])
+output = np.array([[2.0],[8.0],[10.0]])
 
 oriOutput = np.copy(output)
     
@@ -57,18 +57,23 @@ for i in range (1 , rowSize):
             print "mat " , matrix1[i-1], matrix1[i]
             
             tmpSwap = np.copy(matrix1[i-1])
-
-            print "mat " , matrix1[i-1], matrix1[i], tmpSwap
+            tmpSwapOutput = np.copy(output[i-1])
+            
+            print "mat " , matrix1[i-1], matrix1[i], tmpSwap , tmpSwapOutput
 
             matrix1[i-1] = matrix1[i]
+            output[i-1] = output[i]
             
-            print "mat " , matrix1[i-1], matrix1[i], tmpSwap
+            print "mat " , matrix1[i-1], matrix1[i], tmpSwap , tmpSwapOutput
             
             matrix1[i] = tmpSwap
+            output[i] = tmpSwapOutput
             
-            print "mat " , matrix1[i-1], matrix1[i] ,tmpSwap
+            print "mat " , matrix1[i-1], matrix1[i] ,tmpSwap , tmpSwapOutput
 
-            print "" , matrix1, " output " ,  output 
+            print "" , matrix1, " output " ,  output
+
+            
 
             
 
