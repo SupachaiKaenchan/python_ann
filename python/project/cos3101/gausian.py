@@ -5,6 +5,8 @@ import numpy as np
 matrix1 = np.array([[2.0 , 4.0 ]
                    ,[3.0 , -4.0 ]])
 
+
+
 output = np.array([[6],[-1]])
 
 
@@ -14,9 +16,11 @@ matrix1 = np.array([[2.0 , 4.0 , -6.0]
 
                     ])
 
+oriMatrix1 = np.copy(matrix1)
+
 output = np.array([[0],[-27],[-1]])
 
-
+oriOutput = np.copy(output)
     
 
 print matrix1
@@ -35,6 +39,9 @@ print ""
 # loop for set some value under cross line to zero
 
 for i in range (1 , rowSize):
+
+    print "**************************************"
+    
     for j in range (0,i):
         print "loop " , i,j
         print ""
@@ -46,13 +53,24 @@ for i in range (1 , rowSize):
 
         if (matrix1[i-1][j]  == 0): # divide by zero
             print ">swap<"
+            
             print "mat " , matrix1[i-1], matrix1[i]
-            tmpSwap = matrix1[i-1]
-            print matrix1[i-1],tmpSwap
+            
+            tmpSwap = np.copy(matrix1[i-1])
+
+            print "mat " , matrix1[i-1], matrix1[i], tmpSwap
+
             matrix1[i-1] = matrix1[i]
-            print "mat " , matrix1[i-1], matrix1[i]
+            
+            print "mat " , matrix1[i-1], matrix1[i], tmpSwap
+            
             matrix1[i] = tmpSwap
-            print "mat " , matrix1[i-1], matrix1[i]
+            
+            print "mat " , matrix1[i-1], matrix1[i] ,tmpSwap
+
+            print "" , matrix1, " output " ,  output 
+
+            
 
         m =   matrix1[i][j] / matrix1[i-1][j] 
 
@@ -155,3 +173,13 @@ while (bLoop >= 0): #  loop backWard Row
     print matrix1
     print output
     print "<<<<<<<<<"
+
+    print oriMatrix1
+    print oriOutput
+    
+    for lop in range (0,3):
+        tmpK = [oriMatrix1[lop][0]*bDash[0] , oriMatrix1[lop][1]*bDash[1] , oriMatrix1[lop][2]*bDash[2]]
+        tmpK2 = tmpK[0] + tmpK[1] + tmpK[2]
+        print tmpK,tmpK2
+
+    
