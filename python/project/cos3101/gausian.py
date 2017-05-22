@@ -48,62 +48,63 @@ for i in range (1 , rowSize):
 
         print "matrix1[i] , tmpO1 " , matrix1[i] , output[i]
 
+        rowBase = j
 
         #m =  matrix1[i-1][j] / matrix1[i][j]
 
-        if (matrix1[i-1][j]  == 0): # divide by zero
+        if (matrix1[rowBase][j]  == 0): # divide by zero
             print ">swap<"
             
-            print "mat " , matrix1[i-1], matrix1[i]
+            print "mat " , matrix1[rowBase], matrix1[i]
             
-            tmpSwap = np.copy(matrix1[i-1])
-            tmpSwapOutput = np.copy(output[i-1])
+            tmpSwap = np.copy(matrix1[rowBase])
+            tmpSwapOutput = np.copy(output[rowBase])
             
-            print "mat " , matrix1[i-1], matrix1[i], tmpSwap , tmpSwapOutput
+            print "mat " , matrix1[rowBase], matrix1[i], tmpSwap , tmpSwapOutput
 
-            matrix1[i-1] = matrix1[i]
-            output[i-1] = output[i]
+            matrix1[rowBase] = matrix1[i]
+            output[rowBase] = output[i]
             
-            print "mat " , matrix1[i-1], matrix1[i], tmpSwap , tmpSwapOutput
+            print "mat " , matrix1[rowBase], matrix1[i], tmpSwap , tmpSwapOutput
             
             matrix1[i] = tmpSwap
             output[i] = tmpSwapOutput
             
-            print "mat " , matrix1[i-1], matrix1[i] ,tmpSwap , tmpSwapOutput
+            print "mat " , matrix1[rowBase], matrix1[i] ,tmpSwap , tmpSwapOutput
 
             print "" , matrix1, " output " ,  output
 
             
 
-            
+        
 
-        m =   matrix1[i][j] / matrix1[i-1][j] 
+        m =   matrix1[i][j] / matrix1[rowBase][j] 
 
 
 
-        print "m old / cur" , matrix1[i-1][j] , " / " , matrix1[i][j]
+        print "m old / cur" , matrix1[rowBase][j] , " / " , matrix1[i][j]
         
         print m
         print "m " , m
         print ""
 
        
-        g1 = np.dot(matrix1[i-1],  m)
-        g2 = np.dot(output[i-1] , m)
+        g1 = np.dot(matrix1[rowBase],  m)
+        g2 = np.dot(output[rowBase] , m)
             
             
         print "g1  " , g1 , " g2 " , g2
     
 
         print "matrix i " , matrix1[i]
-        print "matrix i-1 " , matrix1[i-1]
+        print "matrix rowBase " , matrix1[rowBase]
         
         # sub track
 
-        g3 = np.subtract(g1 , matrix1[i])
+        g3 = np.subtract( matrix1[i],g1)
         print "g3 ",g3
 
-        g4  = np.subtract(g2 , output[i])
+        g4  = np.subtract(output[i],g2)
         print "g4 " , g4
 
         
@@ -114,6 +115,9 @@ for i in range (1 , rowSize):
         print "" , matrix1, " output " ,  output 
         print "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
+
+print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+print ""
 print ""
 print "after " , matrix1, " output " ,  output
 

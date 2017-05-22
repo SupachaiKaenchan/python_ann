@@ -1,82 +1,68 @@
- 
-matrix1 = []
+def  printMatrix(matrix,matrixAns):  
+    for a in range (0,rowsize):
+        print matrix[a],":",matrixAns[a]
+    
+    
+matrix = []
 matrixAns = []
 
+matrix.append([2.0,4.0,-2.0])
+matrix.append([4.0,9.0,-3.0])
+matrix.append([-2.0,-3.0,7.0])
+matrixAns.append([2.0])
+matrixAns.append([8.0])
+matrixAns.append([10.0])
 
-matrix1.append([2,3])
-matrix1.append([-1,1])
-matrixAns.append([2])
-matrixAns.append([-3])
+rowsize = len(matrix)
+colsize = len(matrix[1])
 
-n = len(matrix1)
-colsize = len(matrix1[1])
-
-nAns = len(matrixAns)
-colsizeAns = len(matrixAns[1])
-
-print "Size Matrix1 = ",n,"*",colsize
-print "matrix1 = ",matrix1
+rowAns = len(matrixAns)
+colsizeAns = len(matrixAns[0]) 
+print "Size Matrix1 = ",rowsize,"*",colsize
+print "Size MatrixAns = ",rowAns,"*",colsizeAns
 print
-print "Size MatrixAns = ",nAns,"*",colsizeAns
-print "matrixAns =",matrixAns
+print " Original matrix1"
 
+printMatrix(matrix,matrixAns)
 
-for i in range (1,n):
-    print "N = ",n
+matrixCopy = [None]*(rowsize)
+matrixAnsCopy = [None]*rowsize
+
+for a in range (0,rowsize):
+    matrixCopy[a] = [None]*colsize
+    matrixAnsCopy[a] = [None] * 1
+    matrixAnsCopy[a][0] = matrixAns[a][0]
+    for c in range (0,colsize):
+        matrixCopy[a][c] = matrix[a][c]
+
+print "  Matrix Copy"
+printMatrix(matrixCopy,matrixAnsCopy)
+print
+
+for loopRow in range (1,rowsize):
     print
-    if(i == n):
-        break
-    #print i
-    for j in range (0,colsize):
-        if(j == colsize-1):
-            break
-        #print "Row ",i,"Col ",j
-        row0Col0 = matrix1[i-1][j]
-        print "Row",i-1,"Col",j,"of Matrix1: ",row0Col0
-        row1Col0 = matrix1[i][j]
-        print "Row",i,"Col",j,"of Matrix1:",row1Col0
-        m = row0Col0/row1Col0 
-        print "M :",row0Col0,"/",row1Col0,"=",m
+    for loopCol in range (0,loopRow):
+            print
 
-        print
-        tmpMatrix = matrix1[i]
-        print "Row",i,"of Matrix1:",tmpMatrix
-        tempOut = matrixAns[i]
-        print "Row",i,"Col",j,"of MatrixAns: ",tempOut
-        print
-        sumMatrix1 = matrix1[i]
-        
-        for k in range (0,colsize):
-            sumMatrix1[k] = tmpMatrix[k]*m
-            #print tmpMatrix[k] 
-            print "Row",i,"col",k,"of Matrix1 * M :",sumMatrix1
-           
-        sumMatrixAns = matrixAns[i]
-        sumMatrixAns[0] = sumMatrixAns[0]*m
-        print "Row",i,"col",i-1,"of MatrixAns * M :",sumMatrixAns
+            indexBase = loopCol
+            
+            m = matrixCopy[loopRow][loopCol]/matrixCopy[indexBase][loopCol]
+            print  "m" , m , ", index Base " , indexBase
+            
+            sumMatrix = [None]*colsize
+            for loopMul in range (0,colsize):
+                sumMatrix[loopMul] = matrixCopy[loopRow][loopMul] - (matrixCopy[indexBase][loopMul]*m)
+                print "SumMarix :",matrixCopy[loopRow][loopMul],"-",(matrixCopy[indexBase][loopMul]*m),"=",sumMatrix
+                
+            matrixAnsCopy[loopRow][0] = matrixAnsCopy[loopRow][0] - (matrixAnsCopy[indexBase][0]*m)
+                
 
-        
-        print matrix1[i-1]
-        print matrix1[i]
-        print
+            #printMatrix(sumMatrix,matrixAnsCopy)
 
+            for copy in range (0,colsize):
+                matrixCopy[loopRow][copy] = sumMatrix[copy]
 
-        sumMatrix = matrix1[i]
-        sumMatrixs = matrix1[i-1]
-        for l in range (0,colsize):
-            sumMatrix[l] = sumMatrix[l] - sumMatrixs[l]
-            print "Row",i,"col",l,"of Matrix :",sumMatrix
-
-        print
-        sumMatrixAns1 = matrixAns[i-1]
-        sumMatrixAns2 = matrixAns[i]
-        print "MatrixAns :",sumMatrixAns1,sumMatrixAns2
-        sumMatrixAns2[0] = sumMatrixAns2[0] - sumMatrixAns1[0]
-        print "Row",i-1,"Col",i-1,"Of MatrixAns :",sumMatrixAns1
-        print "Row",i-1,"Col",i,"Of MatrixAns :",sumMatrixAns2
-       
-
-        print
-        print  "  Matrix"
-        print matrix1[j],":",matrixAns[j]
-        print matrix1[i],":",matrixAns[i]
+            printMatrix (matrixCopy,matrixAnsCopy)
+for row in range (0,rowsize):
+    for col in range (0,colsize):
+       print 
