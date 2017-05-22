@@ -1,4 +1,4 @@
-from OpenGL.GLUT import *
+5from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from OpenGL.GL import *
 import sys

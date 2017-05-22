@@ -85,7 +85,7 @@ yExtend = 100
 while ( cur < n):
 
     x0=0.0
-    i=8
+    i=30
     
     
 
