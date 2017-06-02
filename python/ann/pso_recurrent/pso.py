@@ -60,7 +60,7 @@ class ParticleSwarmOptimizer:
         output = []
         
         for i in range(iterations):
-            print "iteration ", i
+            #print "iteration ", i
             
             #Get the global best particle
             gBest = copy.deepcopy(self.swarm[0].pBest)
@@ -76,7 +76,7 @@ class ParticleSwarmOptimizer:
             if (self.f(gBest) < self.f(output)):
                 output = copy.deepcopy(gBest)
                 
-                print self.f(output)
+                print "better " , i , " = " , self.f(output)
                 #print ("data " + str(output[0]) + " , " + str(output[1]))
             
             #Update position of each paricle
