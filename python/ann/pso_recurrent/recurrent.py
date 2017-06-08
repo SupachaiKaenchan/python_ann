@@ -219,3 +219,12 @@ class recurrent:
         return fitness
         
     
+def main():
+    ree = recurrent()
+    
+    weight = ree.getWeight()    
+    
+    ree.rnn(weight)
+ 
+if  __name__ =='__main__':
+    main()
