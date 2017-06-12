@@ -62,6 +62,8 @@ def DrawGLScene():
     glPopMatrix()
     glutSwapBuffers()
 
+    glutPostRedisplay()
+
 
 def main():
     glutInit(sys.argv)
