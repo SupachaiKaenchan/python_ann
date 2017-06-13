@@ -58,20 +58,9 @@ def Surface(sx,sy,sz,r,g,b):
             glVertex3f(sur[i,j,0] + sx, sur[i,j,1] + sy, sur[i,j,2]+ sz)
     glEnd()
 
-def SetFrame():
-    glPushMatrix()
-    glBegin(GL_LINES)
-    glVertex2f(-10.,0.)
-    glVertex2f( 10., 0.)
-    glVertex2f( 0., -10.)
-    glVertex2f( 0.,  10.)
-    glEnd()
-    glPopMatrix()
-
 def DrawGLScene():
     glClearColor(0.0, 0.0, 0.0, 0.0)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    SetFrame()
     SetGLScene()
     glPushMatrix()
     glRotatef(theta,0,1,0)
