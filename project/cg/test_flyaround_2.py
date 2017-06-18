@@ -125,15 +125,19 @@ def printHelp():
 
 def init():
     glEnable(GL_NORMALIZE)
-    glLightfv(GL_LIGHT0,GL_POSITION,[ .0, 10.0, 10., 0. ] )
-    glLightfv(GL_LIGHT0,GL_AMBIENT,[ .0, .0, .0, 1.0 ]);
-    glLightfv(GL_LIGHT0,GL_DIFFUSE,[ 1.0, 1.0, 1.0, 1.0 ]);
-    glLightfv(GL_LIGHT0,GL_SPECULAR,[ 1.0, 1.0, 1.0, 1.0 ]);
-    glEnable(GL_LIGHT0)
-    glEnable(GL_LIGHTING)
-    glEnable(GL_DEPTH_TEST)
-    glDepthFunc(GL_LESS)
-    glShadeModel(GL_SMOOTH)
+
+    #glLightfv(GL_LIGHT0,GL_POSITION,[ .0, 10.0, 10., 0. ] )
+    #glLightfv(GL_LIGHT0,GL_AMBIENT,[ .0, .0, .0, 1.0 ]);
+    #glLightfv(GL_LIGHT0,GL_DIFFUSE,[ 1.0, 1.0, 1.0, 1.0 ]);
+    #glLightfv(GL_LIGHT0,GL_SPECULAR,[ 1.0, 1.0, 1.0, 1.0 ]);
+    #glEnable(GL_LIGHT0)
+    #glEnable(GL_LIGHTING)
+    
+    #glEnable(GL_DEPTH_TEST)
+    #glDepthFunc(GL_LESS)
+    #glShadeModel(GL_SMOOTH)
+
+
     resetView()
 
 
